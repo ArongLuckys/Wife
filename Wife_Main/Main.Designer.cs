@@ -98,6 +98,10 @@
 			this.button9 = new System.Windows.Forms.Button();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.label10 = new System.Windows.Forms.Label();
+			this.comboBox10 = new System.Windows.Forms.ComboBox();
+			this.comboBox11 = new System.Windows.Forms.ComboBox();
+			this.label11 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox6.SuspendLayout();
@@ -285,6 +289,8 @@
 			// 
 			// tabPage6
 			// 
+			this.tabPage6.Controls.Add(this.comboBox10);
+			this.tabPage6.Controls.Add(this.label10);
 			this.tabPage6.Controls.Add(this.groupBox3);
 			this.tabPage6.Controls.Add(this.comboBox4);
 			this.tabPage6.Controls.Add(this.label3);
@@ -414,7 +420,7 @@
 			this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.textBox1.Location = new System.Drawing.Point(65, 69);
 			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(121, 21);
+			this.textBox1.Size = new System.Drawing.Size(62, 21);
 			this.textBox1.TabIndex = 6;
 			this.textBox1.Text = "500";
 			// 
@@ -707,6 +713,7 @@
 			this.button3.TabIndex = 1;
 			this.button3.Text = "添加任务";
 			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
 			// tabPage9
 			// 
@@ -729,6 +736,8 @@
 			// 
 			// tabPage11
 			// 
+			this.tabPage11.Controls.Add(this.comboBox11);
+			this.tabPage11.Controls.Add(this.label11);
 			this.tabPage11.Controls.Add(this.checkBox9);
 			this.tabPage11.Controls.Add(this.button7);
 			this.tabPage11.Controls.Add(this.checkBox7);
@@ -761,6 +770,7 @@
 			this.button7.TabIndex = 13;
 			this.button7.Text = "添加任务";
 			this.button7.UseVisualStyleBackColor = true;
+			this.button7.Click += new System.EventHandler(this.button7_Click);
 			// 
 			// checkBox7
 			// 
@@ -787,6 +797,7 @@
 			this.comboBox8.Name = "comboBox8";
 			this.comboBox8.Size = new System.Drawing.Size(121, 20);
 			this.comboBox8.TabIndex = 11;
+			this.comboBox8.SelectedIndexChanged += new System.EventHandler(this.comboBox8_SelectedIndexChanged);
 			// 
 			// label8
 			// 
@@ -795,7 +806,7 @@
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(53, 12);
 			this.label8.TabIndex = 10;
-			this.label8.Text = "出征阵容";
+			this.label8.Text = "出征队伍";
 			// 
 			// tabControl2
 			// 
@@ -908,6 +919,55 @@
 			this.timer1.Enabled = true;
 			this.timer1.Interval = 3000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
+			// label10
+			// 
+			this.label10.AutoSize = true;
+			this.label10.Location = new System.Drawing.Point(133, 72);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(53, 12);
+			this.label10.TabIndex = 11;
+			this.label10.Text = "战斗次数";
+			// 
+			// comboBox10
+			// 
+			this.comboBox10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBox10.FormattingEnabled = true;
+			this.comboBox10.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+			this.comboBox10.Location = new System.Drawing.Point(192, 70);
+			this.comboBox10.Name = "comboBox10";
+			this.comboBox10.Size = new System.Drawing.Size(121, 20);
+			this.comboBox10.TabIndex = 12;
+			// 
+			// comboBox11
+			// 
+			this.comboBox11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBox11.FormattingEnabled = true;
+			this.comboBox11.Items.AddRange(new object[] {
+            "单纵",
+            "复纵",
+            "梯形",
+            "单横",
+            "轮形"});
+			this.comboBox11.Location = new System.Drawing.Point(65, 38);
+			this.comboBox11.Name = "comboBox11";
+			this.comboBox11.Size = new System.Drawing.Size(121, 20);
+			this.comboBox11.TabIndex = 16;
+			this.comboBox11.SelectedIndexChanged += new System.EventHandler(this.comboBox11_SelectedIndexChanged);
+			// 
+			// label11
+			// 
+			this.label11.AutoSize = true;
+			this.label11.Location = new System.Drawing.Point(6, 42);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(53, 12);
+			this.label11.TabIndex = 15;
+			this.label11.Text = "出征阵容";
 			// 
 			// Main
 			// 
@@ -1028,6 +1088,10 @@
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Button button9;
 		private System.Windows.Forms.Button button10;
+		private System.Windows.Forms.ComboBox comboBox10;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.ComboBox comboBox11;
+		private System.Windows.Forms.Label label11;
 	}
 }
 

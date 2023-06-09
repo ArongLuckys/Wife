@@ -26,7 +26,28 @@ namespace Wife_Main
 			public int BattleMapComboBox2;
 			public int BattleMapComboBox3;
 			public int BattleMapComboBox4;
+			public int BattleMapComboBox5;
+			public int BattleMapComboBox6;
+			public int BattleMapComboBox8;
+			public int BattleMapComboBox11;
+
+			public bool Difficulty; //true为困难，false为简单
+			public int BattleMapCount; //出征次数
+
+			public string Dy(bool Difficulty)
+			{
+				if (Difficulty == true)
+				{
+					return "困难";
+				}
+				else
+				{
+					return "简单";
+				}
+			}
 		}
+		BattleMap battleMap = new BattleMap();
+
 
 		readonly string[] BattleMap9 = new string[2] { "9-1", "9-2", };
 		readonly string[] BattleMap8 = new string[5] { "8-1", "8-2", "8-3", "8-4", "8-5" };
@@ -103,10 +124,12 @@ namespace Wife_Main
 			comboBox4.SelectedIndex = Properties.Settings.Default.comboBox4;
 
 			//战役
-			comboBox5.SelectedIndex = 0;
-			comboBox6.SelectedIndex = 0;
+			comboBox5.SelectedIndex = Properties.Settings.Default.comboBox5;
+			comboBox6.SelectedIndex = Properties.Settings.Default.comboBox6;
 
-			comboBox8.SelectedIndex = 0;
+			//演习
+			comboBox8.SelectedIndex = Properties.Settings.Default.comboBox8;
+			comboBox11.SelectedIndex = Properties.Settings.Default.comboBox11;
 		}
 
 		/// <summary>
@@ -225,20 +248,69 @@ namespace Wife_Main
 		/// <param name="e"></param>
 		private void button1_Click(object sender, EventArgs e)
 		{
-			BattleMap battleMap = new BattleMap
-			{
-				BattleMapComboBox1 = comboBox1.SelectedIndex,
-				BattleMapComboBox2 = comboBox2.SelectedIndex,
-				BattleMapComboBox3 = comboBox3.SelectedIndex,
-				BattleMapComboBox4 = comboBox4.SelectedIndex,
-			};
-			listBox1.Items.Add(battleMap.BattleMapComboBox1.ToString() + battleMap.BattleMapComboBox2.ToString() + battleMap.BattleMapComboBox3.ToString() + battleMap.BattleMapComboBox4.ToString());
+			battleMap.BattleMapComboBox1 = comboBox1.SelectedIndex;
+			battleMap.BattleMapComboBox2 = comboBox2.SelectedIndex;
+			battleMap.BattleMapComboBox3 = comboBox3.SelectedIndex;
+			battleMap.BattleMapComboBox4 = comboBox4.SelectedIndex;
+			battleMap.BattleMapCount = int.Parse(textBox1.Text);
+			listBox3.Items.Add("【出征】" + comboBox1.Text + "\\" + comboBox2.Text + "\\" + comboBox3.Text + "\\" + comboBox4.Text + "\\次数" + textBox1.Text);
+			listBox1.Items.Add("添加出征任务成功");
 		}
 
-		public bool EnumChildWindowCallback(IntPtr hWnd, IntPtr lParam)
+		/// <summary>
+		/// 演习队伍选择
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void comboBox8_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			listBox2.Items.Add(hWnd);
-			return true;
+			Properties.Settings.Default.comboBox8 = comboBox8.SelectedIndex;
+			Properties.Settings.Default.Save();
+		}
+
+		/// <summary>
+		/// 演习阵容
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void comboBox11_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.comboBox11 = comboBox11.SelectedIndex;
+			Properties.Settings.Default.Save();
+		}
+
+		/// <summary>
+		/// 添加演习任务
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void button7_Click(object sender, EventArgs e)
+		{
+			battleMap.BattleMapComboBox8 = comboBox8.SelectedIndex;
+			battleMap.BattleMapComboBox11 = comboBox11.SelectedIndex;
+			listBox3.Items.Add("【演习】" + comboBox8.Text + "\\" + comboBox11.Text );
+			listBox1.Items.Add("添加演习任务成功");
+		}
+
+		/// <summary>
+		/// 添加战役任务
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void button3_Click(object sender, EventArgs e)
+		{
+			battleMap.BattleMapComboBox5 = comboBox5.SelectedIndex;
+			battleMap.BattleMapComboBox6 = comboBox6.SelectedIndex;
+			if (radioButton3.Checked == true)
+			{
+				battleMap.Difficulty = true;
+			}
+			else
+			{
+				battleMap.Difficulty = false;
+			}
+			listBox3.Items.Add("【战役】" + comboBox6.Text + "\\" + comboBox5.Text + "\\" + battleMap.Dy(battleMap.Difficulty));
+			listBox1.Items.Add("添加战役任务成功");
 		}
 
 		/// <summary>

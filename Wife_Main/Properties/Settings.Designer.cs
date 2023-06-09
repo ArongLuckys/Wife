@@ -94,5 +94,29 @@ namespace Wife_Main.Properties {
                 this["comboBox6"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int comboBox8 {
+            get {
+                return ((int)(this["comboBox8"]));
+            }
+            set {
+                this["comboBox8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int comboBox11 {
+            get {
+                return ((int)(this["comboBox11"]));
+            }
+            set {
+                this["comboBox11"] = value;
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace Wife_Main
@@ -33,6 +34,7 @@ namespace Wife_Main
 
 			public bool Difficulty; //true为困难，false为简单
 			public int BattleMapCount; //出征次数
+			public int ExpeditionTime;
 
 			public string Dy(bool Difficulty)
 			{
@@ -58,10 +60,6 @@ namespace Wife_Main
 		readonly string[] BattleMap3 = new string[4] { "3-1", "3-2", "3-3", "3-4" };
 		readonly string[] BattleMap2 = new string[6] { "2-1", "2-2", "2-3", "2-4", "2-5", "2-6" };
 		readonly string[] BattleMap1 = new string[5] { "1-1", "1-2", "1-3", "1-4", "1-5" };
-
-
-
-
 
 		IntPtr MainGameProgression; //主游戏窗口进程
 
@@ -122,6 +120,8 @@ namespace Wife_Main
 			comboBox2.SelectedIndex = Properties.Settings.Default.comboBox2;
 			comboBox3.SelectedIndex = Properties.Settings.Default.comboBox3;
 			comboBox4.SelectedIndex = Properties.Settings.Default.comboBox4;
+			textBox1.Text = Properties.Settings.Default.textBox1sum.ToString();
+			comboBox10.SelectedIndex = Properties.Settings.Default.comboBox10;
 
 			//战役
 			comboBox5.SelectedIndex = Properties.Settings.Default.comboBox5;
@@ -130,6 +130,9 @@ namespace Wife_Main
 			//演习
 			comboBox8.SelectedIndex = Properties.Settings.Default.comboBox8;
 			comboBox11.SelectedIndex = Properties.Settings.Default.comboBox11;
+
+			//远征
+			textBox2.Text = Properties.Settings.Default.textBox2time.ToString();
 		}
 
 		/// <summary>
@@ -288,8 +291,91 @@ namespace Wife_Main
 		{
 			battleMap.BattleMapComboBox8 = comboBox8.SelectedIndex;
 			battleMap.BattleMapComboBox11 = comboBox11.SelectedIndex;
-			listBox3.Items.Add("【演习】" + comboBox8.Text + "\\" + comboBox11.Text );
+			listBox3.Items.Add("【演习】" + comboBox8.Text + "\\" + comboBox11.Text);
 			listBox1.Items.Add("添加演习任务成功");
+		}
+
+		/// <summary>
+		/// 出征次数
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+			if (textBox1.Text != "")
+			{
+				Properties.Settings.Default.textBox1sum = int.Parse(textBox1.Text);
+				Properties.Settings.Default.Save();
+			}
+			else
+			{
+				MessageBox.Show("出征次数不可以为空");
+				textBox1.Text = Properties.Settings.Default.textBox1sum.ToString();
+			}
+		}
+
+		/// <summary>
+		/// 出征次数判断 禁止输入数字以外的字符
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			// 判断输入的字符是否为数字或退格键
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+			{
+				// 如果不是数字或退格键，则禁止输入
+				e.Handled = true;
+			}
+		}
+
+		/// <summary>
+		/// 添加远征任务
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void button2_Click(object sender, EventArgs e)
+		{
+			battleMap.ExpeditionTime = int.Parse(textBox2.Text) * 60000;//将分钟换算为毫秒
+			listBox3.Items.Add("【远征】" + "每隔" + textBox2.Text +"分钟将检查远征情况");
+			listBox1.Items.Add("添加远征任务成功");
+		}
+
+		/// <summary>
+		/// 远征分钟频率
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			// 判断输入的字符是否为数字或退格键
+			if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+			{
+				// 如果不是数字或退格键，则禁止输入
+				e.Handled = true;
+			}
+		}
+
+		/// <summary>
+		/// 远征时间输入
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void textBox2_TextChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.textBox2time = int.Parse(textBox2.Text);
+			Properties.Settings.Default.Save();
+		}
+
+		/// <summary>
+		/// 战斗次数
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void comboBox10_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.comboBox10 = comboBox10.SelectedIndex;
+			Properties.Settings.Default.Save();
 		}
 
 		/// <summary>

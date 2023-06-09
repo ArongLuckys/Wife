@@ -118,5 +118,41 @@ namespace Wife_Main.Properties {
                 this["comboBox11"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int textBox1sum {
+            get {
+                return ((int)(this["textBox1sum"]));
+            }
+            set {
+                this["textBox1sum"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int textBox2time {
+            get {
+                return ((int)(this["textBox2time"]));
+            }
+            set {
+                this["textBox2time"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int comboBox10 {
+            get {
+                return ((int)(this["comboBox10"]));
+            }
+            set {
+                this["comboBox10"] = value;
+            }
+        }
     }
 }

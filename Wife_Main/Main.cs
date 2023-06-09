@@ -19,6 +19,29 @@ namespace Wife_Main
 			InitializeComponent();
 		}
 
+		//出征结构体
+		struct BattleMap
+		{
+			public int BattleMapComboBox1;
+			public int BattleMapComboBox2;
+			public int BattleMapComboBox3;
+			public int BattleMapComboBox4;
+		}
+
+		readonly string[] BattleMap9 = new string[2] { "9-1", "9-2", };
+		readonly string[] BattleMap8 = new string[5] { "8-1", "8-2", "8-3", "8-4", "8-5" };
+		readonly string[] BattleMap7 = new string[5] { "7-1", "7-2", "7-3", "7-4", "7-5" };
+		readonly string[] BattleMap6 = new string[4] { "6-1", "6-2", "6-3", "6-4" };
+		readonly string[] BattleMap5 = new string[5] { "5-1", "5-2", "5-3", "5-4", "5-5" };
+		readonly string[] BattleMap4 = new string[4] { "4-1", "4-2", "4-3", "4-4" };
+		readonly string[] BattleMap3 = new string[4] { "3-1", "3-2", "3-3", "3-4" };
+		readonly string[] BattleMap2 = new string[6] { "2-1", "2-2", "2-3", "2-4", "2-5", "2-6" };
+		readonly string[] BattleMap1 = new string[5] { "1-1", "1-2", "1-3", "1-4", "1-5" };
+
+
+
+
+
 		IntPtr MainGameProgression; //主游戏窗口进程
 
 		//公共属性
@@ -72,6 +95,18 @@ namespace Wife_Main
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			comboBox7.SelectedIndex = 0;
+
+			//出征
+			comboBox1.SelectedIndex = Properties.Settings.Default.comboBox1;
+			comboBox2.SelectedIndex = Properties.Settings.Default.comboBox2;
+			comboBox3.SelectedIndex = Properties.Settings.Default.comboBox3;
+			comboBox4.SelectedIndex = Properties.Settings.Default.comboBox4;
+
+			//战役
+			comboBox5.SelectedIndex = 0;
+			comboBox6.SelectedIndex = 0;
+
+			comboBox8.SelectedIndex = 0;
 		}
 
 		/// <summary>
@@ -82,23 +117,122 @@ namespace Wife_Main
 		private void timer1_Tick(object sender, EventArgs e)
 		{
 			MainGameProgression = Wife_Core.GetSubform(Wife_Core.FindWindow(null, comboBox7.Text));
-			pictureBox1.BackgroundImage =  Wife_Core.CaptureWindow(MainGameProgression);
+			pictureBox1.BackgroundImage = Wife_Core.CaptureWindow(MainGameProgression);
 			listBox1.Items.Add(pictureBox1.BackgroundImage.Size);
 			//pictureBox1.BackgroundImage = Wife_Core.CaptureWindow(Wife_Core.FindWindow(null, comboBox7.Text));
 			pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
-			
+
 
 			if (Wife_Main.Home(HomePath) == true)
 			{
 				listBox1.Items.Add("当前位于主页");
 			}
 
-				if (listBox1.Items.Count > 100)
+			if (listBox1.Items.Count > 100)
 			{
 				listBox1.Items.Clear();
 			}
 			listBox1.SelectedIndex = listBox1.Items.Count - 1;
 			GC.Collect();
+		}
+
+		/// <summary>
+		/// 出征地图
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.comboBox1 = comboBox1.SelectedIndex;
+			Properties.Settings.Default.Save();
+
+			comboBox2.Items.Clear();
+			switch (comboBox1.SelectedIndex)
+			{
+				case 8: { comboBox2.Items.AddRange(BattleMap1); comboBox2.SelectedIndex = 0; }; break;
+				case 7: { comboBox2.Items.AddRange(BattleMap2); comboBox2.SelectedIndex = 0; }; break;
+				case 6: { comboBox2.Items.AddRange(BattleMap3); comboBox2.SelectedIndex = 0; }; break;
+				case 5: { comboBox2.Items.AddRange(BattleMap4); comboBox2.SelectedIndex = 0; }; break;
+				case 4: { comboBox2.Items.AddRange(BattleMap5); comboBox2.SelectedIndex = 0; }; break;
+				case 3: { comboBox2.Items.AddRange(BattleMap6); comboBox2.SelectedIndex = 0; }; break;
+				case 2: { comboBox2.Items.AddRange(BattleMap7); comboBox2.SelectedIndex = 0; }; break;
+				case 1: { comboBox2.Items.AddRange(BattleMap8); comboBox2.SelectedIndex = 0; }; break;
+				case 0: { comboBox2.Items.AddRange(BattleMap9); comboBox2.SelectedIndex = 0; }; break;
+				default: break;
+			}
+		}
+
+		/// <summary>
+		/// 出征地图 详细分支
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.comboBox2 = comboBox2.SelectedIndex;
+			Properties.Settings.Default.Save();
+			listBox1.Items.Add(comboBox2.SelectedIndex);
+		}
+
+		/// <summary>
+		/// 出征阵容
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.comboBox3 = comboBox3.SelectedIndex;
+			Properties.Settings.Default.Save();
+		}
+
+		/// <summary>
+		/// 出征阵容，队形
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.comboBox4 = comboBox4.SelectedIndex;
+			Properties.Settings.Default.Save();
+		}
+
+		/// <summary>
+		/// 战役 地图选择
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.comboBox6 = comboBox6.SelectedIndex;
+			Properties.Settings.Default.Save();
+		}
+
+		/// <summary>
+		/// 战役 出征阵容
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.comboBox5 = comboBox5.SelectedIndex;
+			Properties.Settings.Default.Save();
+		}
+
+		/// <summary>
+		/// 添加出征任务
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void button1_Click(object sender, EventArgs e)
+		{
+			BattleMap battleMap = new BattleMap
+			{
+				BattleMapComboBox1 = comboBox1.SelectedIndex,
+				BattleMapComboBox2 = comboBox2.SelectedIndex,
+				BattleMapComboBox3 = comboBox3.SelectedIndex,
+				BattleMapComboBox4 = comboBox4.SelectedIndex,
+			};
+			listBox1.Items.Add(battleMap.BattleMapComboBox1.ToString() + battleMap.BattleMapComboBox2.ToString() + battleMap.BattleMapComboBox3.ToString() + battleMap.BattleMapComboBox4.ToString());
 		}
 
 		public bool EnumChildWindowCallback(IntPtr hWnd, IntPtr lParam)
@@ -129,7 +263,7 @@ namespace Wife_Main
 
 		private void button10_Click(object sender, EventArgs e)
 		{
-			
+
 		}
 	}
 }

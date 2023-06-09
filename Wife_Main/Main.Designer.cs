@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -96,7 +97,7 @@
 			this.button10 = new System.Windows.Forms.Button();
 			this.button9 = new System.Windows.Forms.Button();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.timer1 = new System.Windows.Forms.Timer();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox6.SuspendLayout();
@@ -397,6 +398,7 @@
 			this.comboBox4.Name = "comboBox4";
 			this.comboBox4.Size = new System.Drawing.Size(121, 20);
 			this.comboBox4.TabIndex = 8;
+			this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
 			// 
 			// label3
 			// 
@@ -429,6 +431,7 @@
 			this.comboBox3.Name = "comboBox3";
 			this.comboBox3.Size = new System.Drawing.Size(121, 20);
 			this.comboBox3.TabIndex = 5;
+			this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
 			// 
 			// label2
 			// 
@@ -450,6 +453,7 @@
 			this.comboBox2.Name = "comboBox2";
 			this.comboBox2.Size = new System.Drawing.Size(121, 20);
 			this.comboBox2.TabIndex = 3;
+			this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
 			// 
 			// comboBox1
 			// 
@@ -479,6 +483,7 @@
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(121, 20);
 			this.comboBox1.TabIndex = 2;
+			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
 			// 
 			// label1
 			// 
@@ -497,6 +502,7 @@
 			this.button1.TabIndex = 0;
 			this.button1.Text = "添加任务";
 			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// tabPage7
 			// 
@@ -657,6 +663,7 @@
 			this.comboBox5.Name = "comboBox5";
 			this.comboBox5.Size = new System.Drawing.Size(121, 20);
 			this.comboBox5.TabIndex = 9;
+			this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
 			// 
 			// label6
 			// 
@@ -681,6 +688,7 @@
 			this.comboBox6.Name = "comboBox6";
 			this.comboBox6.Size = new System.Drawing.Size(121, 20);
 			this.comboBox6.TabIndex = 7;
+			this.comboBox6.SelectedIndexChanged += new System.EventHandler(this.comboBox6_SelectedIndexChanged);
 			// 
 			// label7
 			// 
@@ -770,6 +778,11 @@
 			// 
 			this.comboBox8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox8.FormattingEnabled = true;
+			this.comboBox8.Items.AddRange(new object[] {
+            "第一编队",
+            "第二编队",
+            "第三编队",
+            "第四编队"});
 			this.comboBox8.Location = new System.Drawing.Point(65, 6);
 			this.comboBox8.Name = "comboBox8";
 			this.comboBox8.Size = new System.Drawing.Size(121, 20);
@@ -893,7 +906,7 @@
 			// timer1
 			// 
 			this.timer1.Enabled = true;
-			this.timer1.Interval = 1000;
+			this.timer1.Interval = 3000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// Main

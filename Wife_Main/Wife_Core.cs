@@ -11,7 +11,7 @@ using System.IO;
 
 namespace Wife_Main
 {
-	internal class Wife_Core
+	public class Wife_Core
 	{
 		[DllImport("user32.dll")]
 		public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
@@ -209,11 +209,12 @@ namespace Wife_Main
 		/// <param name="x"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		static public System.Drawing.Color GetPixelColor(int x, int y)
+		static public Color GetPixelColor(Point p)
 		{
-			IntPtr hdc = GetDC(IntPtr.Zero);
-			uint pixel = GetPixel(hdc, x, y);
-			ReleaseDC(IntPtr.Zero, hdc);
+			//IntPtr hdc = GetDC(IntPtr.Zero);
+
+			uint pixel = GetPixel(Main.MainGameProgression, p.X,p.Y);
+			ReleaseDC(IntPtr.Zero, Main.MainGameProgression);
 			Color color = Color.FromArgb((int)(pixel & 0x000000FF), (int)(pixel & 0x0000FF00) >> 8, (int)(pixel & 0x00FF0000) >> 16);
 			return color;
 		}
@@ -243,7 +244,7 @@ namespace Wife_Main
 			{
 				//从游戏界面中获取的色值
 				Point xy = P_info(file[i]);
-				Color c = Wife_Color.GetPixelColor(xy.X, xy.Y);
+				Color c = Wife_Color.GetPixelColor(xy);
 				//从数据内读出来的色值
 				Color color = C_info(file[i]);
 				//计算色差
@@ -257,7 +258,7 @@ namespace Wife_Main
 				{
 					result = false;
 					//调试专用
-					Console.WriteLine(file[i]);
+					//Console.WriteLine(file[i]);
 					//MessageBox.Show(file[i]);
 					//File.AppendAllText(Log, DateTime.Now + c.ToString() + file[i].ToString()+"\n");
 					//File.AppendAllText(Log, DateTime.Now + color.ToString() + "\n");

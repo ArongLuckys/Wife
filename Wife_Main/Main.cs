@@ -61,7 +61,7 @@ namespace Wife_Main
 		readonly string[] BattleMap2 = new string[6] { "2-1", "2-2", "2-3", "2-4", "2-5", "2-6" };
 		readonly string[] BattleMap1 = new string[5] { "1-1", "1-2", "1-3", "1-4", "1-5" };
 
-		IntPtr MainGameProgression; //主游戏窗口进程
+		public static IntPtr MainGameProgression; //主游戏窗口进程
 
 		//公共属性
 		public int times;//鼠标点击间隔

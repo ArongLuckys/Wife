@@ -207,7 +207,6 @@ namespace Wife_Main
 			return color;
 		}
 
-
 		//公共变量
 		public static string datapath = Directory.GetCurrentDirectory() + "\\Data";
 		public static string Log = Directory.GetCurrentDirectory() + "\\Wife_Log.txt"; //日志文件路径
@@ -228,7 +227,13 @@ namespace Wife_Main
 			{
 				//从游戏界面中获取的色值
 				Point xy = P_info(file[i]);
-				Color c = GetPixelColor(xy);
+				//Color c = GetPixelColor(xy);
+				Color c = new Color();
+				if (Main.LiveInterface.Size != new Size(1,1))
+				{
+					c = ((Bitmap)Main.LiveInterface).GetPixel(xy.X, xy.Y);
+				}
+
 				//从数据内读出来的色值
 				Color color = C_info(file[i]);
 				//计算色差
@@ -264,7 +269,7 @@ namespace Wife_Main
 		}
 
 		/// <summary>
-		/// 返回颜色
+		/// 还原数据中的RGB并且组合成Color
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>

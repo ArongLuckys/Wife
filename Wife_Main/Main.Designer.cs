@@ -102,6 +102,7 @@
 			this.button9 = new System.Windows.Forms.Button();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.timer2 = new System.Windows.Forms.Timer(this.components);
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox6.SuspendLayout();
@@ -200,7 +201,8 @@
 			this.comboBox7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox7.FormattingEnabled = true;
 			this.comboBox7.Items.AddRange(new object[] {
-            "雷电模拟器"});
+            "雷电模拟器",
+            "提效工具箱_V3.1"});
 			this.comboBox7.Location = new System.Drawing.Point(6, 20);
 			this.comboBox7.Name = "comboBox7";
 			this.comboBox7.Size = new System.Drawing.Size(159, 20);
@@ -975,6 +977,10 @@
 			this.timer1.Interval = 3000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
+			// timer2
+			// 
+			this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1098,6 +1104,7 @@
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.ComboBox comboBox11;
 		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.Timer timer2;
 	}
 }
 

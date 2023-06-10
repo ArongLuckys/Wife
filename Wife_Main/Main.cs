@@ -61,6 +61,7 @@ namespace Wife_Main
 		readonly string[] BattleMap1 = new string[5] { "1-1", "1-2", "1-3", "1-4", "1-5" };
 
 		public static IntPtr MainGameProgression; //主游戏窗口进程
+		public static Image LiveInterface; //游戏主窗口画面
 
 		//公共属性
 		public int times;//鼠标点击间隔
@@ -140,6 +141,7 @@ namespace Wife_Main
 		private void timer1_Tick(object sender, EventArgs e)
 		{
 			MainGameProgression = Wife_Core.GetSubform(Wife_Core.FindWindow(null, comboBox7.Text));
+			LiveInterface = Wife_Core.CaptureWindow(MainGameProgression);
 			pictureBox1.BackgroundImage = Wife_Core.CaptureWindow(MainGameProgression);
 			listBox1.Items.Add("窗口大小为" + pictureBox1.BackgroundImage.Size);
 			pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
@@ -372,6 +374,16 @@ namespace Wife_Main
 		{
 			Properties.Settings.Default.comboBox10 = comboBox10.SelectedIndex;
 			Properties.Settings.Default.Save();
+		}
+
+		/// <summary>
+		/// 根据当前任务列表，结合timer1得到的界面信息，执行对应操作
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void timer2_Tick(object sender, EventArgs e)
+		{
+
 		}
 
 		/// <summary>

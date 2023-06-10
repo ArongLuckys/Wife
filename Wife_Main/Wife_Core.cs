@@ -23,7 +23,7 @@ namespace Wife_Main
 		public static extern int GetWindowTextLength(IntPtr hwnd);
 
 		[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-		public static extern int GetWindowText(IntPtr hWnd,StringBuilder lpWindowText, int nMaxCount);
+		public static extern int GetWindowText(IntPtr hWnd, StringBuilder lpWindowText, int nMaxCount);
 
 		[DllImport("user32.dll")]
 		public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
@@ -60,6 +60,9 @@ namespace Wife_Main
 
 		[DllImport("user32.dll")]
 		static extern bool SetLayeredWindowAttributes(IntPtr hWnd, uint crKey, byte bAlpha, uint dwFlags);
+
+		[DllImport("gdi32.dll")]
+		static extern uint GetPixel(IntPtr hdc, int nXPos, int nYPos);
 
 		public struct RECT
 		{
@@ -119,10 +122,10 @@ namespace Wife_Main
 			SendMessage(ass, WM_LBUTTONUP, wParam, lParam);
 		}
 
-		static List<string> list_hW = new List<string>(); 
+		static List<string> list_hW = new List<string>();
 
 		/// <summary>
-		/// 传入主窗体的句柄，返回要推送的子窗口句柄
+		/// 传入主窗体的句柄，返回要推送的子窗口句柄,这个目前只支持雷电模拟器！
 		/// </summary>
 		/// <returns></returns>
 		public static IntPtr GetSubform(IntPtr hWnd)
@@ -130,7 +133,7 @@ namespace Wife_Main
 			if (hWnd != IntPtr.Zero)
 			{
 				EnumChildWindows(hWnd, EnumChildWindowCallback, IntPtr.Zero);
-				for (int i = 0;i< list_hW.Count;i++)
+				for (int i = 0; i < list_hW.Count; i++)
 				{
 					IntPtr ip = new IntPtr(int.Parse(list_hW[i]));
 					int length = Wife_Core.GetWindowTextLength(ip);
@@ -189,20 +192,6 @@ namespace Wife_Main
 			mouse_event(MouseEventFlag.LeftDown | MouseEventFlag.LeftUp, 0, 0, 0, UIntPtr.Zero);
 		}
 
-	}
-
-	/// <summary>
-	/// 颜色控制
-	/// </summary>
-	public class Wife_Color
-	{
-		[DllImport("user32.dll")]
-		static extern IntPtr GetDC(IntPtr hwnd);
-		[DllImport("user32.dll")]
-		static extern Int32 ReleaseDC(IntPtr hwnd, IntPtr hdc);
-		[DllImport("gdi32.dll")]
-		static extern uint GetPixel(IntPtr hdc, int nXPos, int nYPos);
-
 		/// <summary>
 		/// 返回颜色色值
 		/// </summary>
@@ -212,20 +201,15 @@ namespace Wife_Main
 		static public Color GetPixelColor(Point p)
 		{
 			//IntPtr hdc = GetDC(IntPtr.Zero);
-
-			uint pixel = GetPixel(Main.MainGameProgression, p.X,p.Y);
+			uint pixel = GetPixel(Main.MainGameProgression, p.X, p.Y);
 			ReleaseDC(IntPtr.Zero, Main.MainGameProgression);
 			Color color = Color.FromArgb((int)(pixel & 0x000000FF), (int)(pixel & 0x0000FF00) >> 8, (int)(pixel & 0x00FF0000) >> 16);
 			return color;
 		}
-	}
 
-	//主控制类
-	public class Wife_Main
-	{
+
 		//公共变量
 		public static string datapath = Directory.GetCurrentDirectory() + "\\Data";
-
 		public static string Log = Directory.GetCurrentDirectory() + "\\Wife_Log.txt"; //日志文件路径
 
 		/// <summary>
@@ -244,7 +228,7 @@ namespace Wife_Main
 			{
 				//从游戏界面中获取的色值
 				Point xy = P_info(file[i]);
-				Color c = Wife_Color.GetPixelColor(xy);
+				Color c = GetPixelColor(xy);
 				//从数据内读出来的色值
 				Color color = C_info(file[i]);
 				//计算色差
@@ -316,12 +300,5 @@ namespace Wife_Main
 			}
 			image.Save(path + times + ".jpg", ImageFormat.Jpeg);
 		}
-
-
-
-
-
-
-
 	}
 }

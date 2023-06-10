@@ -50,7 +50,6 @@ namespace Wife_Main
 		}
 		BattleMap battleMap = new BattleMap();
 
-
 		readonly string[] BattleMap9 = new string[2] { "9-1", "9-2", };
 		readonly string[] BattleMap8 = new string[5] { "8-1", "8-2", "8-3", "8-4", "8-5" };
 		readonly string[] BattleMap7 = new string[5] { "7-1", "7-2", "7-3", "7-4", "7-5" };
@@ -104,8 +103,6 @@ namespace Wife_Main
 		public string Disassemble_Wife_Add_OK_Mes = Dg + "\\Disassemble_Wife\\Disassemble_Wife_Add_OK_Mes\\"; //拆解船只界面添加船只完成且含有四星船弹窗 1015
 		public string HomePathBroadside = Dg + "\\HomePathBroadside\\"; //主页侧边栏 1016
 
-
-
 		/// <summary>
 		/// 窗体加载程序
 		/// </summary>
@@ -144,12 +141,11 @@ namespace Wife_Main
 		{
 			MainGameProgression = Wife_Core.GetSubform(Wife_Core.FindWindow(null, comboBox7.Text));
 			pictureBox1.BackgroundImage = Wife_Core.CaptureWindow(MainGameProgression);
-			listBox1.Items.Add(pictureBox1.BackgroundImage.Size);
-			//pictureBox1.BackgroundImage = Wife_Core.CaptureWindow(Wife_Core.FindWindow(null, comboBox7.Text));
+			listBox1.Items.Add("窗口大小为" + pictureBox1.BackgroundImage.Size);
 			pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
 
 
-			if (Wife_Main.Home(HomePath) == true)
+			if (Wife_Core.Home(HomePath) == true)
 			{
 				listBox1.Items.Add("当前位于主页");
 			}

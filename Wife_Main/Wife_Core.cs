@@ -114,9 +114,9 @@ namespace Wife_Main
 		/// <param name="ass"></param>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
-		public static void Clicks(IntPtr ass, int x, int y)
+		public static void Clicks(IntPtr ass,Point p )
 		{
-			IntPtr lParam = (IntPtr)((y << 16) | x); // 将x和y坐标合并为lParam参数
+			IntPtr lParam = (IntPtr)((p.Y << 16) | p.X); // 将x和y坐标合并为lParam参数
 			IntPtr wParam = (IntPtr)MK_LBUTTON; // 设置鼠标左键按下标志位
 			SendMessage(ass, WM_LBUTTONDOWN, wParam, lParam);
 			SendMessage(ass, WM_LBUTTONUP, wParam, lParam);

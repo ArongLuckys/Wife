@@ -34,7 +34,12 @@ namespace Wife_Main
 
 			public bool Difficulty; //true为困难，false为简单
 			public int BattleMapCount; //出征次数
-			public int ExpeditionTime;
+			public int ExpeditionTime; //远征时间
+
+			//任务情况
+			public bool ExpeditionSwitch;
+
+
 
 			public string Dy(bool Difficulty)
 			{
@@ -105,6 +110,28 @@ namespace Wife_Main
 		public string HomePathBroadside = Dg + "\\HomePathBroadside\\"; //主页侧边栏 1016
 
 		/// <summary>
+		/// 用户点位传递
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		public static Point User_Point(int value)
+		{
+			Point user = new Point();
+			switch (value)
+			{
+				case 0: { user.X = 1270; user.Y = 360; }; break;//跳过键
+				case 1: { user.X = 1200; user.Y = 660; }; break;//主页中出征
+				case 2: { user.X = 230; user.Y = 30; }; break;//出征页面中的出征
+				case 3: { user.X = 560; user.Y = 30; }; break;//出征页面中的远征
+
+
+			}
+
+			return user;
+		}
+
+
+		/// <summary>
 		/// 窗体加载程序
 		/// </summary>
 		/// <param name="sender"></param>
@@ -143,7 +170,7 @@ namespace Wife_Main
 			MainGameProgression = Wife_Core.GetSubform(Wife_Core.FindWindow(null, comboBox7.Text));
 			LiveInterface = Wife_Core.CaptureWindow(MainGameProgression);
 			pictureBox1.BackgroundImage = Wife_Core.CaptureWindow(MainGameProgression);
-			listBox1.Items.Add("窗口大小为" + pictureBox1.BackgroundImage.Size);
+			//listBox1.Items.Add("窗口大小为" + pictureBox1.BackgroundImage.Size);
 			pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
 
 
@@ -335,7 +362,8 @@ namespace Wife_Main
 		private void button2_Click(object sender, EventArgs e)
 		{
 			battleMap.ExpeditionTime = int.Parse(textBox2.Text) * 60000;//将分钟换算为毫秒
-			listBox3.Items.Add("【远征】" + "每隔" + textBox2.Text +"分钟将检查远征情况");
+			battleMap.ExpeditionSwitch = true; //开始远征
+			listBox3.Items.Add("【远征】" + "每隔" + textBox2.Text + "分钟将检查远征情况");
 			listBox1.Items.Add("添加远征任务成功");
 		}
 
@@ -383,7 +411,10 @@ namespace Wife_Main
 		/// <param name="e"></param>
 		private void timer2_Tick(object sender, EventArgs e)
 		{
-
+			if (battleMap.ExpeditionSwitch == true)
+			{
+				ExpeditionMain();
+			}
 		}
 
 		/// <summary>
@@ -414,7 +445,9 @@ namespace Wife_Main
 		/// <param name="e"></param>
 		private void button6_Click(object sender, EventArgs e)
 		{
-
+			//任务列表开始
+			timer2.Start();
+			listBox1.Items.Add("计时器二启动");
 		}
 
 		/// <summary>
@@ -424,12 +457,50 @@ namespace Wife_Main
 		/// <param name="e"></param>
 		private void button9_Click(object sender, EventArgs e)
 		{
-			Wife_Core.Clicks(MainGameProgression, 170, 220);
+			Wife_Core.Clicks(MainGameProgression, User_Point(1));
 		}
 
+		/// <summary>
+		/// 调试
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void button10_Click(object sender, EventArgs e)
 		{
 
 		}
+
+		/// <summary>
+		/// 远征主函数
+		/// </summary>
+		private void ExpeditionMain()
+		{
+			//判断当前是否在主页
+			if (Wife_Core.Home(HomePath) == true)
+			{
+				listBox1.Items.Add("远征 - 当前位于主页");
+				Wife_Core.Clicks(MainGameProgression, User_Point(1));
+			}
+
+			//判断当前是否在出征页面
+			if (Wife_Core.Home(Go_On_An_Expedition) == true)
+			{
+				listBox1.Items.Add("远征 - 当前位于出征");
+				Wife_Core.Clicks(MainGameProgression, User_Point(3));
+			}
+
+
+
+
+
+
+
+		}
+
+
+
+
+
+
 	}
 }

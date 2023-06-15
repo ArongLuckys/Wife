@@ -51,20 +51,19 @@ namespace Wife_Main
 		readonly string[] BattleMap2 = new string[6] { "2-1", "2-2", "2-3", "2-4", "2-5", "2-6" };
 		readonly string[] BattleMap1 = new string[5] { "1-1", "1-2", "1-3", "1-4", "1-5" };
 
-		public static IntPtr MainGameProgression; //主游戏窗口进程
-		public static Image LiveInterface; //游戏主窗口画面
+		public static IntPtr MainGameProgression; //游戏窗口进程
+		public static Image LiveInterface; //游戏窗口画面
 
 		//公共属性
 		public int times;//鼠标点击间隔
 		public int mouse_er; //鼠标误差
 		public static int execute_sum; //执行次数
-		Random rd = new Random(); //浮点数
 		public static string Dg = Directory.GetCurrentDirectory() + "\\Data"; //配置文件路径
 		public Point pt; //全局唯一坐标点
 		public static string Mian_info; //全局信息输出，由计时器输出
 		public DateTime de = DateTime.Now; //当前时间
 		public static string Log = Directory.GetCurrentDirectory() + "\\Wife_Log.txt"; //日志文件路径
-		public static int UI = 0; //这个设置窗口显示，如果是1则显示主窗口
+
 		public static int Fully_Invested = 0; //这个属性用于检测满仓，1为满 0为不满
 		public static int Combat_Condition = 0; //这个属性进入战斗后为1，结束为0 用于战斗中夜战判断
 
@@ -77,7 +76,7 @@ namespace Wife_Main
 		public int Number_of_battles_Re = 1; //单次战斗的次数 计时器使用参数
 
 		//每个界面信息定义
-		public string HomePath = Dg + "\\Home\\"; //主页 1000
+		public string HomePath = Dg + "Home.wife"; //主页 1000
 		public string Go_On_An_Expedition = Dg + "\\Go_On_An_Expedition\\"; //出征界面 1001
 		public string Formation = Dg + "\\Formation\\"; //编队界面 1002
 		public string Expedition = Dg + "\\Expedition\\"; //远征界面 1003
@@ -104,7 +103,7 @@ namespace Wife_Main
 		}
 
 		/// <summary>
-		/// 用户点位传递
+		/// 用户点位传递,返回对应的点位置
 		/// </summary>
 		/// <param name="value"></param>
 		/// <returns></returns>

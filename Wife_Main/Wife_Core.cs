@@ -237,7 +237,7 @@ namespace Wife_Main
 				}
 
 				//从数据内读出来的色值
-				Color color = C_info(file[i]);
+				Color color = Color.FromArgb(intArr[2], intArr[3], intArr[4]);
 				//计算色差
 				int cs = 10;
 				int tmpr = Math.Abs(c.R - color.R);
@@ -248,6 +248,7 @@ namespace Wife_Main
 				if ((tmpr > cs) || (tmpg > cs) || (tmpb > cs))
 				{
 					result = false;
+					break;
 					//调试专用
 					//Console.WriteLine(file[i]);
 					//MessageBox.Show(file[i]);

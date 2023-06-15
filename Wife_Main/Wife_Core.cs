@@ -209,22 +209,27 @@ namespace Wife_Main
 		public static string Log = Directory.GetCurrentDirectory() + "\\Wife_Log.txt"; //日志文件路径
 
 		/// <summary>
-		/// 返回当前的页面情况 需要传入对应的界面色点分析文件夹路径
+		/// 返回当前的页面情况 需要传入对应的界面色点分析文件路径
 		/// </summary>
 		/// <param name="path"></param>
 		/// <returns></returns>
 		public static bool Home(string path)
 		{
-			//读取当前的文件夹下所有色点数据
-			string[] file = Directory.GetFiles(path);
+			//读取当前的文件下所有色点数据
+			string[] file = File.ReadAllLines(path);
 			//结果值，默认为真，如果一个不符合，则为假
 			bool result = true;
-			//遍历
 			for (int i = 0; i < file.Length; i++)
 			{
+				string[] strArr = file[i].Split('=');
+				int[] intArr = new int[5];
+				for (int j = 0; j < strArr.Length; j++)
+				{
+					intArr[j] = int.Parse(strArr[j]);
+				}
+
 				//从游戏界面中获取的色值
-				Point xy = P_info(file[i]);
-				//Color c = GetPixelColor(xy);
+				Point xy =new Point(intArr[0], intArr[1]);
 				Color c = new Color();
 				if (Main.LiveInterface.Size != new Size(1, 1))
 				{

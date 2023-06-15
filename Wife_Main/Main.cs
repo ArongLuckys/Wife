@@ -15,10 +15,8 @@ namespace Wife_Main
 {
 	public partial class Main : Form
 	{
-		public Main()
-		{
-			InitializeComponent();
-		}
+
+		#region 这里为全部的公共属性定义，全局可用
 
 		//出征结构体
 		struct BattleMap
@@ -42,6 +40,7 @@ namespace Wife_Main
 		}
 		BattleMap battleMap = new BattleMap();
 
+		//出征数组定义
 		readonly string[] BattleMap9 = new string[2] { "9-1", "9-2", };
 		readonly string[] BattleMap8 = new string[5] { "8-1", "8-2", "8-3", "8-4", "8-5" };
 		readonly string[] BattleMap7 = new string[5] { "7-1", "7-2", "7-3", "7-4", "7-5" };
@@ -97,9 +96,12 @@ namespace Wife_Main
 		public string HomePathBroadside = Dg + "\\HomePathBroadside\\"; //主页侧边栏 1016
 
 
+		#endregion
 
-
-
+		public Main()
+		{
+			InitializeComponent();
+		}
 
 		/// <summary>
 		/// 用户点位传递

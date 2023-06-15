@@ -181,6 +181,14 @@ namespace Color_Point
 			color9 = GetPixelColor(Control.MousePosition.X + 1, Control.MousePosition.Y + 1);
 
 			button9.BackColor = color;
+			button5.BackColor = color2;
+			button6.BackColor = color3;
+			button7.BackColor = color4;
+			button10.BackColor = color5;
+			button8.BackColor = color6;
+			button13.BackColor = color7;
+			button12.BackColor = color8;
+			button11.BackColor = color9;
 
 			button14.BackColor = Color.Red;
 

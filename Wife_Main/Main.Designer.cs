@@ -103,6 +103,7 @@
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.timer2 = new System.Windows.Forms.Timer(this.components);
+			this.button11 = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox6.SuspendLayout();
@@ -141,6 +142,7 @@
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.button11);
 			this.tabPage1.Controls.Add(this.button6);
 			this.tabPage1.Controls.Add(this.groupBox6);
 			this.tabPage1.Controls.Add(this.groupBox2);
@@ -592,7 +594,7 @@
 			this.textBox2.Name = "textBox2";
 			this.textBox2.Size = new System.Drawing.Size(66, 21);
 			this.textBox2.TabIndex = 7;
-			this.textBox2.Text = "15";
+			this.textBox2.Text = "3";
 			this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
 			this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
 			// 
@@ -982,6 +984,16 @@
 			this.timer2.Interval = 3000;
 			this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
 			// 
+			// button11
+			// 
+			this.button11.Location = new System.Drawing.Point(598, 12);
+			this.button11.Name = "button11";
+			this.button11.Size = new System.Drawing.Size(168, 45);
+			this.button11.TabIndex = 13;
+			this.button11.Text = "护肝结束";
+			this.button11.UseVisualStyleBackColor = true;
+			this.button11.Click += new System.EventHandler(this.button11_Click);
+			// 
 			// Main
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1106,6 +1118,7 @@
 		private System.Windows.Forms.ComboBox comboBox11;
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.Timer timer2;
+		private System.Windows.Forms.Button button11;
 	}
 }
 

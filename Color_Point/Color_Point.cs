@@ -113,6 +113,11 @@ namespace Color_Point
 		public Color color, color2, color3, color4, color5, color6, color7, color8, color9;
 		public string value;
 
+		private void button15_Click(object sender, EventArgs e)
+		{
+			listBox1.Items.Clear();
+		}
+
 		/// <summary>
 		/// 存储当前鼠标位置的点位信息
 		/// </summary>

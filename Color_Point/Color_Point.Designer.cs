@@ -59,6 +59,7 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
+			this.button15 = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -198,6 +199,7 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.button15);
 			this.groupBox1.Controls.Add(this.listBox1);
 			this.groupBox1.Controls.Add(this.button14);
 			this.groupBox1.Controls.Add(this.button11);
@@ -366,6 +368,17 @@
 			this.checkBox2.Text = "坐标修正为当前线程";
 			this.checkBox2.UseVisualStyleBackColor = true;
 			// 
+			// button15
+			// 
+			this.button15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.button15.Location = new System.Drawing.Point(380, 161);
+			this.button15.Name = "button15";
+			this.button15.Size = new System.Drawing.Size(100, 30);
+			this.button15.TabIndex = 29;
+			this.button15.Text = "清空";
+			this.button15.UseVisualStyleBackColor = true;
+			this.button15.Click += new System.EventHandler(this.button15_Click);
+			// 
 			// Color_Point
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -417,6 +430,7 @@
 		private System.Windows.Forms.Button button5;
 		private System.Windows.Forms.Button button14;
 		private System.Windows.Forms.ListBox listBox1;
+		private System.Windows.Forms.Button button15;
 	}
 }
 

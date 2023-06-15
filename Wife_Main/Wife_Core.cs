@@ -286,7 +286,7 @@ namespace Wife_Main
 		/// <summary>
 		/// 屏幕截图
 		/// </summary>
-		/// <param name="info">1为放置在出船内，2为放置在修船内,0为其他</param>
+		/// <param name="info">1为放置在出船内，2为放置在修船内,3为远征，0为其他</param>
 		public static void CreateImage(int info)
 		{
 			string times = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ff");
@@ -298,9 +298,14 @@ namespace Wife_Main
 						path = Directory.GetCurrentDirectory() + "\\Bmp_info\\Award\\";
 						Directory.CreateDirectory(path);
 					}; break;
-				case 0:
+				case 2:
 					{
 						path = Directory.GetCurrentDirectory() + "\\Bmp_info\\Repair\\";
+						Directory.CreateDirectory(path);
+					}; break;
+				case 3:
+					{
+						path = Directory.GetCurrentDirectory() + "\\Bmp_info\\Expedition\\";
 						Directory.CreateDirectory(path);
 					}; break;
 				default:

@@ -33,7 +33,6 @@
 			this.button2 = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.button3 = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
@@ -45,20 +44,21 @@
 			this.textBox3 = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
-			this.label7 = new System.Windows.Forms.Label();
-			this.label8 = new System.Windows.Forms.Label();
-			this.label9 = new System.Windows.Forms.Label();
-			this.button5 = new System.Windows.Forms.Button();
-			this.button6 = new System.Windows.Forms.Button();
-			this.button7 = new System.Windows.Forms.Button();
-			this.button8 = new System.Windows.Forms.Button();
-			this.button9 = new System.Windows.Forms.Button();
-			this.button10 = new System.Windows.Forms.Button();
+			this.listBox1 = new System.Windows.Forms.ListBox();
+			this.button14 = new System.Windows.Forms.Button();
 			this.button11 = new System.Windows.Forms.Button();
 			this.button12 = new System.Windows.Forms.Button();
 			this.button13 = new System.Windows.Forms.Button();
-			this.button14 = new System.Windows.Forms.Button();
+			this.button8 = new System.Windows.Forms.Button();
+			this.button9 = new System.Windows.Forms.Button();
+			this.button10 = new System.Windows.Forms.Button();
+			this.button7 = new System.Windows.Forms.Button();
+			this.button6 = new System.Windows.Forms.Button();
+			this.button5 = new System.Windows.Forms.Button();
+			this.label9 = new System.Windows.Forms.Label();
+			this.label8 = new System.Windows.Forms.Label();
+			this.label7 = new System.Windows.Forms.Label();
+			this.checkBox2 = new System.Windows.Forms.CheckBox();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -69,7 +69,7 @@
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(100, 30);
 			this.button1.TabIndex = 0;
-			this.button1.Text = "记录 &K";
+			this.button1.Text = "记录 &A";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
@@ -104,24 +104,9 @@
 			this.label2.TabIndex = 3;
 			this.label2.Text = "111";
 			// 
-			// checkBox1
-			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Checked = true;
-			this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.checkBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.checkBox1.Location = new System.Drawing.Point(561, 163);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(72, 16);
-			this.checkBox1.TabIndex = 4;
-			this.checkBox1.Text = "连续捕捉";
-			this.checkBox1.UseVisualStyleBackColor = true;
-			this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-			// 
 			// timer1
 			// 
 			this.timer1.Enabled = true;
-			this.timer1.Interval = 1;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// button3
@@ -213,6 +198,7 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.listBox1);
 			this.groupBox1.Controls.Add(this.button14);
 			this.groupBox1.Controls.Add(this.button11);
 			this.groupBox1.Controls.Add(this.button12);
@@ -239,7 +225,6 @@
 			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Controls.Add(this.label2);
 			this.groupBox1.Controls.Add(this.textBox2);
-			this.groupBox1.Controls.Add(this.checkBox1);
 			this.groupBox1.Controls.Add(this.textBox1);
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -248,6 +233,125 @@
 			this.groupBox1.TabIndex = 14;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "面板";
+			// 
+			// listBox1
+			// 
+			this.listBox1.FormattingEnabled = true;
+			this.listBox1.ItemHeight = 12;
+			this.listBox1.Location = new System.Drawing.Point(380, 197);
+			this.listBox1.Name = "listBox1";
+			this.listBox1.Size = new System.Drawing.Size(287, 208);
+			this.listBox1.TabIndex = 28;
+			// 
+			// button14
+			// 
+			this.button14.Location = new System.Drawing.Point(324, 264);
+			this.button14.Name = "button14";
+			this.button14.Size = new System.Drawing.Size(50, 50);
+			this.button14.TabIndex = 27;
+			this.button14.UseVisualStyleBackColor = true;
+			// 
+			// button11
+			// 
+			this.button11.Location = new System.Drawing.Point(268, 320);
+			this.button11.Name = "button11";
+			this.button11.Size = new System.Drawing.Size(50, 50);
+			this.button11.TabIndex = 26;
+			this.button11.UseVisualStyleBackColor = true;
+			// 
+			// button12
+			// 
+			this.button12.Location = new System.Drawing.Point(212, 320);
+			this.button12.Name = "button12";
+			this.button12.Size = new System.Drawing.Size(50, 50);
+			this.button12.TabIndex = 25;
+			this.button12.UseVisualStyleBackColor = true;
+			// 
+			// button13
+			// 
+			this.button13.Location = new System.Drawing.Point(156, 320);
+			this.button13.Name = "button13";
+			this.button13.Size = new System.Drawing.Size(50, 50);
+			this.button13.TabIndex = 24;
+			this.button13.UseVisualStyleBackColor = true;
+			// 
+			// button8
+			// 
+			this.button8.Location = new System.Drawing.Point(268, 264);
+			this.button8.Name = "button8";
+			this.button8.Size = new System.Drawing.Size(50, 50);
+			this.button8.TabIndex = 23;
+			this.button8.UseVisualStyleBackColor = true;
+			// 
+			// button9
+			// 
+			this.button9.Location = new System.Drawing.Point(212, 264);
+			this.button9.Name = "button9";
+			this.button9.Size = new System.Drawing.Size(50, 50);
+			this.button9.TabIndex = 22;
+			this.button9.UseVisualStyleBackColor = true;
+			// 
+			// button10
+			// 
+			this.button10.Location = new System.Drawing.Point(156, 264);
+			this.button10.Name = "button10";
+			this.button10.Size = new System.Drawing.Size(50, 50);
+			this.button10.TabIndex = 21;
+			this.button10.UseVisualStyleBackColor = true;
+			// 
+			// button7
+			// 
+			this.button7.Location = new System.Drawing.Point(268, 208);
+			this.button7.Name = "button7";
+			this.button7.Size = new System.Drawing.Size(50, 50);
+			this.button7.TabIndex = 20;
+			this.button7.UseVisualStyleBackColor = true;
+			// 
+			// button6
+			// 
+			this.button6.Location = new System.Drawing.Point(212, 208);
+			this.button6.Name = "button6";
+			this.button6.Size = new System.Drawing.Size(50, 50);
+			this.button6.TabIndex = 19;
+			this.button6.UseVisualStyleBackColor = true;
+			// 
+			// button5
+			// 
+			this.button5.Location = new System.Drawing.Point(156, 208);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(50, 50);
+			this.button5.TabIndex = 18;
+			this.button5.UseVisualStyleBackColor = true;
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.label9.Location = new System.Drawing.Point(12, 236);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(23, 12);
+			this.label9.TabIndex = 17;
+			this.label9.Text = "555";
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.label8.Location = new System.Drawing.Point(12, 208);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(23, 12);
+			this.label8.TabIndex = 16;
+			this.label8.Text = "444";
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+			this.label7.Location = new System.Drawing.Point(12, 181);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(23, 12);
+			this.label7.TabIndex = 15;
+			this.label7.Text = "333";
 			// 
 			// checkBox2
 			// 
@@ -261,116 +365,6 @@
 			this.checkBox2.TabIndex = 14;
 			this.checkBox2.Text = "坐标修正为当前线程";
 			this.checkBox2.UseVisualStyleBackColor = true;
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.label7.Location = new System.Drawing.Point(24, 179);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(23, 12);
-			this.label7.TabIndex = 15;
-			this.label7.Text = "333";
-			// 
-			// label8
-			// 
-			this.label8.AutoSize = true;
-			this.label8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.label8.Location = new System.Drawing.Point(24, 211);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(23, 12);
-			this.label8.TabIndex = 16;
-			this.label8.Text = "444";
-			// 
-			// label9
-			// 
-			this.label9.AutoSize = true;
-			this.label9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-			this.label9.Location = new System.Drawing.Point(21, 238);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(23, 12);
-			this.label9.TabIndex = 17;
-			this.label9.Text = "555";
-			// 
-			// button5
-			// 
-			this.button5.Location = new System.Drawing.Point(247, 211);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(50, 50);
-			this.button5.TabIndex = 18;
-			this.button5.UseVisualStyleBackColor = true;
-			// 
-			// button6
-			// 
-			this.button6.Location = new System.Drawing.Point(303, 211);
-			this.button6.Name = "button6";
-			this.button6.Size = new System.Drawing.Size(50, 50);
-			this.button6.TabIndex = 19;
-			this.button6.UseVisualStyleBackColor = true;
-			// 
-			// button7
-			// 
-			this.button7.Location = new System.Drawing.Point(359, 211);
-			this.button7.Name = "button7";
-			this.button7.Size = new System.Drawing.Size(50, 50);
-			this.button7.TabIndex = 20;
-			this.button7.UseVisualStyleBackColor = true;
-			// 
-			// button8
-			// 
-			this.button8.Location = new System.Drawing.Point(359, 267);
-			this.button8.Name = "button8";
-			this.button8.Size = new System.Drawing.Size(50, 50);
-			this.button8.TabIndex = 23;
-			this.button8.UseVisualStyleBackColor = true;
-			// 
-			// button9
-			// 
-			this.button9.Location = new System.Drawing.Point(303, 267);
-			this.button9.Name = "button9";
-			this.button9.Size = new System.Drawing.Size(50, 50);
-			this.button9.TabIndex = 22;
-			this.button9.UseVisualStyleBackColor = true;
-			// 
-			// button10
-			// 
-			this.button10.Location = new System.Drawing.Point(247, 267);
-			this.button10.Name = "button10";
-			this.button10.Size = new System.Drawing.Size(50, 50);
-			this.button10.TabIndex = 21;
-			this.button10.UseVisualStyleBackColor = true;
-			// 
-			// button11
-			// 
-			this.button11.Location = new System.Drawing.Point(359, 323);
-			this.button11.Name = "button11";
-			this.button11.Size = new System.Drawing.Size(50, 50);
-			this.button11.TabIndex = 26;
-			this.button11.UseVisualStyleBackColor = true;
-			// 
-			// button12
-			// 
-			this.button12.Location = new System.Drawing.Point(303, 323);
-			this.button12.Name = "button12";
-			this.button12.Size = new System.Drawing.Size(50, 50);
-			this.button12.TabIndex = 25;
-			this.button12.UseVisualStyleBackColor = true;
-			// 
-			// button13
-			// 
-			this.button13.Location = new System.Drawing.Point(247, 323);
-			this.button13.Name = "button13";
-			this.button13.Size = new System.Drawing.Size(50, 50);
-			this.button13.TabIndex = 24;
-			this.button13.UseVisualStyleBackColor = true;
-			// 
-			// button14
-			// 
-			this.button14.Location = new System.Drawing.Point(474, 267);
-			this.button14.Name = "button14";
-			this.button14.Size = new System.Drawing.Size(50, 50);
-			this.button14.TabIndex = 27;
-			this.button14.UseVisualStyleBackColor = true;
 			// 
 			// Color_Point
 			// 
@@ -397,7 +391,6 @@
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.CheckBox checkBox1;
 		private System.Windows.Forms.Timer timer1;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.TextBox textBox1;
@@ -423,6 +416,7 @@
 		private System.Windows.Forms.Button button6;
 		private System.Windows.Forms.Button button5;
 		private System.Windows.Forms.Button button14;
+		private System.Windows.Forms.ListBox listBox1;
 	}
 }
 

@@ -201,7 +201,8 @@
 			this.comboBox7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox7.FormattingEnabled = true;
 			this.comboBox7.Items.AddRange(new object[] {
-            "雷电模拟器"});
+            "雷电模拟器",
+            "提效工具箱_V3.1"});
 			this.comboBox7.Location = new System.Drawing.Point(6, 20);
 			this.comboBox7.Name = "comboBox7";
 			this.comboBox7.Size = new System.Drawing.Size(159, 20);

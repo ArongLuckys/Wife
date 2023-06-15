@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Wife_Main
 {
@@ -114,7 +111,7 @@ namespace Wife_Main
 		/// <param name="ass"></param>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
-		public static void Clicks(IntPtr ass,Point p )
+		public static void Clicks(IntPtr ass, Point p)
 		{
 			IntPtr lParam = (IntPtr)((p.Y << 16) | p.X); // 将x和y坐标合并为lParam参数
 			IntPtr wParam = (IntPtr)MK_LBUTTON; // 设置鼠标左键按下标志位
@@ -229,7 +226,7 @@ namespace Wife_Main
 				Point xy = P_info(file[i]);
 				//Color c = GetPixelColor(xy);
 				Color c = new Color();
-				if (Main.LiveInterface.Size != new Size(1,1))
+				if (Main.LiveInterface.Size != new Size(1, 1))
 				{
 					c = ((Bitmap)Main.LiveInterface).GetPixel(xy.X, xy.Y);
 				}
@@ -283,27 +280,30 @@ namespace Wife_Main
 		/// <summary>
 		/// 屏幕截图
 		/// </summary>
-		/// <param name="info">1为放置在出船内，2为放置在修船内</param>
+		/// <param name="info">1为放置在出船内，2为放置在修船内,0为其他</param>
 		public static void CreateImage(int info)
 		{
-			Image image = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-			Graphics g = Graphics.FromImage(image);
-			g.CopyFromScreen(new Point(0, 0), new Point(0, 0), Screen.PrimaryScreen.Bounds.Size);
 			string times = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ff");
 			string path;
-			if (info == 1)
+			switch (info)
 			{
-				//出船截图
-				path = Directory.GetCurrentDirectory() + "\\Bmp_info\\Award\\";
-				Directory.CreateDirectory(path);
+				case 1:
+					{
+						path = Directory.GetCurrentDirectory() + "\\Bmp_info\\Award\\";
+						Directory.CreateDirectory(path);
+					}; break;
+				case 0:
+					{
+						path = Directory.GetCurrentDirectory() + "\\Bmp_info\\Repair\\";
+						Directory.CreateDirectory(path);
+					}; break;
+				default:
+					{
+						path = Directory.GetCurrentDirectory() + "\\Bmp_info\\Else\\";
+						Directory.CreateDirectory(path);
+					}; break;
 			}
-			else
-			{
-				//修船截图
-				path = Directory.GetCurrentDirectory() + "\\Bmp_info\\Repair\\";
-				Directory.CreateDirectory(path);
-			}
-			image.Save(path + times + ".jpg", ImageFormat.Jpeg);
+			Main.LiveInterface.Save(path + times + ".jpg", ImageFormat.Jpeg);
 		}
 	}
 }

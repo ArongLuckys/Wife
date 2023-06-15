@@ -15,6 +15,8 @@ namespace Color_Point
 {
 	public partial class Color_Point : Form
 	{
+		#region 外来接口
+
 		//颜色相关
 		[DllImport("user32.dll")]
 		static extern IntPtr GetDC(IntPtr hwnd);
@@ -22,13 +24,15 @@ namespace Color_Point
 		static extern Int32 ReleaseDC(IntPtr hwnd, IntPtr hdc);
 		[DllImport("gdi32.dll")]
 		static extern uint GetPixel(IntPtr hdc, int nXPos, int nYPos);
+
+
 		/// <summary>
 		/// 返回颜色色值
 		/// </summary>
 		/// <param name="x"></param>
 		/// <param name="y"></param>
 		/// <returns></returns>
-		static public System.Drawing.Color GetPixelColor(int x, int y)
+		static public Color GetPixelColor(int x, int y)
 		{
 			IntPtr hdc = GetDC(IntPtr.Zero);
 			uint pixel = GetPixel(hdc, x, y);
@@ -98,6 +102,7 @@ namespace Color_Point
 			public int Bottom;
 		}
 
+		#endregion
 
 		public Color_Point()
 		{
@@ -105,15 +110,17 @@ namespace Color_Point
 		}
 
 		//公共变量
-		public int sum = 0;
 		public Color color, color2, color3, color4, color5, color6, color7, color8, color9;
-		public string[] value = new string[5];
+		public string value;
 
-
-		//读取当前鼠标位置的点位信息
+		/// <summary>
+		/// 存储当前鼠标位置的点位信息
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void button1_Click(object sender, EventArgs e)
 		{
-			start();
+			listBox1.Items.Add(value);
 		}
 
 
@@ -149,9 +156,9 @@ namespace Color_Point
 		/// <summary>
 		/// 主程序
 		/// </summary>
-		public void start()
+		public void StartiInfo()
 		{
-			IntPtr ips = GetSubform(FindWindow(null, "雷电模拟器"));
+			IntPtr ips = GetSubform(FindWindow(null, textBox3.Text));
 			RECT rect = new RECT();
 			GetWindowRect(ips, ref rect);
 			label7.Text = ips.ToString();
@@ -161,7 +168,7 @@ namespace Color_Point
 			//获取光标位置
 			Point mousePosition = new Point(Control.MousePosition.X - rect.Left, Control.MousePosition.Y - rect.Top);
 
-			//只要的颜色显示
+			//主要的颜色显示
 			color = GetPixelColor(Control.MousePosition.X, Control.MousePosition.Y);
 
 			color2 = GetPixelColor(Control.MousePosition.X - 1, Control.MousePosition.Y - 1);
@@ -174,14 +181,6 @@ namespace Color_Point
 			color9 = GetPixelColor(Control.MousePosition.X + 1, Control.MousePosition.Y + 1);
 
 			button9.BackColor = color;
-			button5.BackColor = color2;
-			button6.BackColor = color3;
-			button7.BackColor = color4;
-			button10.BackColor = color5;
-			button8.BackColor = color6;
-			button13.BackColor = color7;
-			button12.BackColor = color8;
-			button11.BackColor = color9;
 
 			button14.BackColor = Color.Red;
 
@@ -189,7 +188,6 @@ namespace Color_Point
 			{
 				button14.BackColor = Color.Green;
 			}
-
 
 			//得到rgp
 			int red = color.R;    //R值 
@@ -201,45 +199,51 @@ namespace Color_Point
 				+ red.ToString() + "\\"
 				+ green.ToString() + "\\"
 				+ blue.ToString();
-			//声明数组传递参数
-			value[0] = mousePosition.X.ToString();
-			value[1] = mousePosition.Y.ToString();
-			value[2] = color.R.ToString();
-			value[3] = color.G.ToString();
-			value[4] = color.B.ToString();
+			value = mousePosition.X.ToString() + "=" + mousePosition.Y.ToString() + "=" + color.R.ToString() + "=" + color.G.ToString() + "=" + color.B.ToString();
 
+			GC.Collect();
 		}
 
-		//保存当前鼠标位置的点位信息到文件夹下面
+		/// <summary>
+		/// 保存当前鼠标位置的点位信息到文件夹下面
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void button2_Click(object sender, EventArgs e)
 		{
 			//文件类型
-			string files = Directory.GetCurrentDirectory() + "\\" + "Wife_Color_Point_Data" + sum.ToString() + ".txt";
-			File.AppendAllText(files, value[0] + "\n");//x坐标
-			File.AppendAllText(files, value[1] + "\n");//y坐标
-			File.AppendAllText(files, value[2] + "\n");//R
-			File.AppendAllText(files, value[3] + "\n");//G
-			File.AppendAllText(files, value[4]);//B
-												//创建完成
-			MessageBox.Show("创建完成");
-			sum++;
-		}
+			string path = Directory.GetCurrentDirectory() + "\\" + "Wife_Color_Point_Data" + ".wife";
 
-		private void timer1_Tick(object sender, EventArgs e)
-		{
-			if (checkBox1.Checked == true)
+			if (listBox1.Items.Count != 0)
 			{
-				start();
+				if (File.Exists(path))
+				{
+					File.Delete(path);
+				}
+
+				for (int i = 0; i < listBox1.Items.Count; i++)
+				{
+					File.AppendAllText(path, listBox1.Items[i].ToString() + "\n");
+				}
+				MessageBox.Show("创建完成");
 			}
 		}
 
-		//连续捕捉
-		private void checkBox1_CheckedChanged(object sender, EventArgs e)
+		/// <summary>
+		/// 主分析计时器
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void timer1_Tick(object sender, EventArgs e)
 		{
-			this.ActiveControl = this.button2;
+			StartiInfo();
 		}
 
-		//文件地址
+		/// <summary>
+		/// 打开文件地址
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void button3_Click(object sender, EventArgs e)
 		{
 			string files = Directory.GetCurrentDirectory();

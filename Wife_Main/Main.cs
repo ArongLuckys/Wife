@@ -33,25 +33,12 @@ namespace Wife_Main
 			public int BattleMapComboBox11;
 
 			public bool Difficulty; //true为困难，false为简单
+			public string DifficultyName;
 			public int BattleMapCount; //出征次数
 			public int ExpeditionTime; //远征时间
 
-			//任务情况
-			public bool ExpeditionSwitch;
+			public bool ExpeditionSwitch; //远征任务情况
 
-
-
-			public string Dy(bool Difficulty)
-			{
-				if (Difficulty == true)
-				{
-					return "困难";
-				}
-				else
-				{
-					return "简单";
-				}
-			}
 		}
 		BattleMap battleMap = new BattleMap();
 
@@ -108,6 +95,11 @@ namespace Wife_Main
 		public string Disassemble_Wife_Add_OK = Dg + "\\Disassemble_Wife\\Disassemble_Wife_Add_OK\\"; //拆解船只界面添加船只完成 1014
 		public string Disassemble_Wife_Add_OK_Mes = Dg + "\\Disassemble_Wife\\Disassemble_Wife_Add_OK_Mes\\"; //拆解船只界面添加船只完成且含有四星船弹窗 1015
 		public string HomePathBroadside = Dg + "\\HomePathBroadside\\"; //主页侧边栏 1016
+
+
+
+
+
 
 		/// <summary>
 		/// 用户点位传递
@@ -170,14 +162,14 @@ namespace Wife_Main
 			MainGameProgression = Wife_Core.GetSubform(Wife_Core.FindWindow(null, comboBox7.Text));
 			LiveInterface = Wife_Core.CaptureWindow(MainGameProgression);
 			pictureBox1.BackgroundImage = Wife_Core.CaptureWindow(MainGameProgression);
-			//listBox1.Items.Add("窗口大小为" + pictureBox1.BackgroundImage.Size);
+			listBox1.Items.Add("窗口大小为" + pictureBox1.BackgroundImage.Size);
 			pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
 
 
-			if (Wife_Core.Home(HomePath) == true)
-			{
-				listBox1.Items.Add("当前位于主页");
-			}
+			//if (Wife_Core.Home(HomePath) == true)
+			//{
+			//	listBox1.Items.Add("当前位于主页");
+			//}
 
 			if (listBox1.Items.Count > 100)
 			{
@@ -429,12 +421,14 @@ namespace Wife_Main
 			if (radioButton3.Checked == true)
 			{
 				battleMap.Difficulty = true;
+				battleMap.DifficultyName = "困难";
 			}
 			else
 			{
 				battleMap.Difficulty = false;
+				battleMap.DifficultyName = "简单";
 			}
-			listBox3.Items.Add("【战役】" + comboBox6.Text + "\\" + comboBox5.Text + "\\" + battleMap.Dy(battleMap.Difficulty));
+			listBox3.Items.Add("【战役】" + comboBox6.Text + "\\" + comboBox5.Text + "\\" + battleMap.DifficultyName);
 			listBox1.Items.Add("添加战役任务成功");
 		}
 
@@ -457,7 +451,11 @@ namespace Wife_Main
 		/// <param name="e"></param>
 		private void button9_Click(object sender, EventArgs e)
 		{
-			Wife_Core.Clicks(MainGameProgression, User_Point(1));
+			//Wife_Core.Clicks(MainGameProgression, User_Point(1));
+
+			Wife_Core.CreateImage(0);
+			Wife_Core.CreateImage(1);
+			Wife_Core.CreateImage(2);
 		}
 
 		/// <summary>
@@ -469,6 +467,8 @@ namespace Wife_Main
 		{
 
 		}
+
+		#region 出征主函数的逻辑
 
 		/// <summary>
 		/// 远征主函数
@@ -493,9 +493,16 @@ namespace Wife_Main
 
 
 
-
-
 		}
+
+		#endregion
+
+
+
+
+
+
+
 
 
 

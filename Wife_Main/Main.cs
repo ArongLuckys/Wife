@@ -85,7 +85,7 @@ namespace Wife_Main
 		public static double Run_times; //总出征时间
 		public static int NumberOfRepairs; //维修次数统计
 
-		
+
 		public int Number_of_battles_Re = 1; //单次战斗的次数 计时器使用参数
 
 		//每个界面信息定义
@@ -99,7 +99,7 @@ namespace Wife_Main
 		public string Shipping = Dg + "Shipping.wife"; //船只界面，出货界面
 		public string Forward_And_Backward = Dg + "Forward_And_Backward.wife"; //战斗结束后 无大破的前进与后退
 		public string Post_War_Disadvantage = Dg + "Post_War_Disadvantage.wife"; //战斗结束后 有大破的前进与后退
-
+		public string Flagship_Damage = Dg + "Flagship_Damage.wife"; //旗舰大破
 
 
 
@@ -109,8 +109,8 @@ namespace Wife_Main
 		public string Our_Team = Dg + "\\Our_Team\\"; //我方阵容选择界面 1007
 
 		public string Full_Position = Dg + "\\Full_Position\\"; //出征界面 船只满位 1009
-		
-		public string Flagship_Damage = Dg + "\\Flagship_Damage\\"; //旗舰大破 1011
+
+
 		public string Disassemble_Wife = Dg + "\\Disassemble_Wife\\Disassemble_Wife\\"; //拆解船只界面 1012
 		public string Disassemble_Wife_Add = Dg + "\\Disassemble_Wife\\Disassemble_Wife_Add\\"; //拆解船只界面添加船只 1013
 		public string Disassemble_Wife_Add_OK = Dg + "\\Disassemble_Wife\\Disassemble_Wife_Add_OK\\"; //拆解船只界面添加船只完成 1014
@@ -169,6 +169,7 @@ namespace Wife_Main
 				case 7: { user.X = 940; user.Y = 660; }; break;//索敌完成中的 撤退
 				case 8: { user.X = 440; user.Y = 460; }; break;//大地图中 无大破的前进与后退界面中的前进
 				case 9: { user.X = 840; user.Y = 460; }; break;//大地图中 无大破的前进与后退界面中的回港
+				case 10: { user.X = 940; user.Y = 440; }; break;//大地图中 旗舰大破回港
 
 				case 99: { user.X = 40; user.Y = 40; }; break;//左上角返回键
 
@@ -222,7 +223,7 @@ namespace Wife_Main
 			comboBox8.SelectedIndex = Properties.Settings.Default.comboBox8;
 			comboBox11.SelectedIndex = Properties.Settings.Default.comboBox11;
 
-			
+
 			textBox2.Text = Properties.Settings.Default.textBox2time.ToString();//远征时间
 			checkBox11.Checked = Properties.Settings.Default.checkBox11; //是否夜战
 		}
@@ -240,11 +241,6 @@ namespace Wife_Main
 			//listBox1.Items.Add("窗口大小为" + pictureBox1.BackgroundImage.Size);
 			pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
 
-			if (listBox1.Items.Count > 100)
-			{
-				listBox1.Items.Clear();
-			}
-			listBox1.SelectedIndex = listBox1.Items.Count - 1;
 			GC.Collect();
 		}
 
@@ -283,7 +279,6 @@ namespace Wife_Main
 		{
 			Properties.Settings.Default.comboBox2 = comboBox2.SelectedIndex;
 			Properties.Settings.Default.Save();
-			listBox1.Items.Add(comboBox2.SelectedIndex);
 		}
 
 		/// <summary>
@@ -467,16 +462,6 @@ namespace Wife_Main
 		}
 
 		/// <summary>
-		/// 根据当前任务列表，结合timer1得到的界面信息，执行对应操作
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void timer2_Tick(object sender, EventArgs e)
-		{
-
-		}
-
-		/// <summary>
 		/// 添加战役任务
 		/// </summary>
 		/// <param name="sender"></param>
@@ -506,8 +491,10 @@ namespace Wife_Main
 		/// <param name="e"></param>
 		private void button11_Click(object sender, EventArgs e)
 		{
+			//任务结束
 			ExpeditionSwitch = false;
 			ComBatSwitch = false;
+			MessageBox.Show("队列任务已经全部停止，请不要多次点击");
 		}
 
 		/// <summary>
@@ -527,6 +514,7 @@ namespace Wife_Main
 			{
 				ComBatMain();
 			}
+			MessageBox.Show("队列任务已经启动，请不要多次点击，\n护肝过程中请不要最小化模拟器或者把模拟器窗口拖拽出显示器范围外!!!");
 		}
 
 		/// <summary>
@@ -552,6 +540,39 @@ namespace Wife_Main
 		{
 			Properties.Settings.Default.checkBox11 = checkBox11.Checked;
 			Properties.Settings.Default.Save();
+		}
+
+		/// <summary>
+		/// 专门刷新listbox
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void timer2_Tick_1(object sender, EventArgs e)
+		{
+			listBox1.SelectedIndex = listBox1.Items.Count - 1;
+		}
+
+		/// <summary>
+		/// 退出wife
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void Main_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			string path = Directory.GetCurrentDirectory() + "\\Log";
+			if (!Directory.Exists(path))
+			{
+				Directory.CreateDirectory(path);
+			}
+			string logfile = path + "\\Wife_Log" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ff") + ".txt";
+			if (!File.Exists(logfile))
+			{
+				File.AppendAllText(logfile, "");
+			}
+			for (int i = 0; i < listBox1.Items.Count; i++)
+			{
+				File.AppendAllText(logfile, listBox1.Items[i].ToString() + "\n");
+			}
 		}
 
 		/// <summary>
@@ -606,7 +627,7 @@ namespace Wife_Main
 						if (Wife_Core.Home(Expedition_Resource_01) == true)
 						{
 							Wife_Core.Clicks(MainGameProgression, User_Point(31));
-							listBox2.Items.Add(DateTime.Now + "收集了第一行的资源");
+							listBox2.Items.Add(DateTime.Now + "远征 - 收集了第一行的资源");
 							await Task.Run(() => { Thread.Sleep(3000); });
 						}
 
@@ -614,7 +635,7 @@ namespace Wife_Main
 						if (Wife_Core.Home(Expedition_Resource_02) == true)
 						{
 							Wife_Core.Clicks(MainGameProgression, User_Point(32));
-							listBox2.Items.Add(DateTime.Now + "收集了第二行的资源");
+							listBox2.Items.Add(DateTime.Now + "远征 - 收集了第二行的资源");
 							await Task.Run(() => { Thread.Sleep(3000); });
 						}
 
@@ -622,7 +643,7 @@ namespace Wife_Main
 						if (Wife_Core.Home(Expedition_Resource_03) == true)
 						{
 							Wife_Core.Clicks(MainGameProgression, User_Point(33));
-							listBox2.Items.Add(DateTime.Now + "收集了第三行的资源");
+							listBox2.Items.Add(DateTime.Now + "远征 - 收集了第三行的资源");
 							await Task.Run(() => { Thread.Sleep(3000); });
 						}
 
@@ -630,13 +651,13 @@ namespace Wife_Main
 						if (Wife_Core.Home(Expedition_Resource_04) == true)
 						{
 							Wife_Core.Clicks(MainGameProgression, User_Point(34));
-							listBox2.Items.Add(DateTime.Now + "收集了第四行的资源");
+							listBox2.Items.Add(DateTime.Now + "远征 - 收集了第四行的资源");
 							await Task.Run(() => { Thread.Sleep(3000); });
 						}
 					}
 					else
 					{
-						listBox1.Items.Add(DateTime.Now + "返回主页");
+						listBox1.Items.Add(DateTime.Now + "远征 - 返回主页");
 						//左上角返回主页
 						Wife_Core.Clicks(MainGameProgression, User_Point(99));
 						await Task.Run(() => { Thread.Sleep(3000); });
@@ -824,7 +845,13 @@ namespace Wife_Main
 					await Task.Run(() => { Thread.Sleep(3000); });
 				}
 
-
+				//判断是否是 旗舰大破
+				if (Wife_Core.Home(Flagship_Damage) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "出征 - 战后旗舰大破 回港");
+					Wife_Core.Clicks(MainGameProgression, User_Point(10));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
 
 
 				//判断结束后是否是 有大破船只 这种情况一定回
@@ -859,7 +886,7 @@ namespace Wife_Main
 				//一号位
 				if (Wife_Core.Home(Wife_Life1) == true)
 				{
-					listBox1.Items.Add(DateTime.Now + "一号位老婆大破");
+					listBox1.Items.Add(DateTime.Now + "维修 - 一号位老婆大破");
 					Wife_Core.CreateImage(2); //截图
 					await Task.Run(() => { Thread.Sleep(3000); });
 					Wife_Core.Clicks(MainGameProgression, User_Point(61));
@@ -869,7 +896,7 @@ namespace Wife_Main
 				//二号位
 				if (Wife_Core.Home(Wife_Life2) == true)
 				{
-					listBox1.Items.Add(DateTime.Now + "二号位老婆大破");
+					listBox1.Items.Add(DateTime.Now + "维修 - 二号位老婆大破");
 					Wife_Core.CreateImage(2); //截图
 					await Task.Run(() => { Thread.Sleep(3000); });
 					Wife_Core.Clicks(MainGameProgression, User_Point(62));
@@ -879,7 +906,7 @@ namespace Wife_Main
 				//三号位
 				if (Wife_Core.Home(Wife_Life3) == true)
 				{
-					listBox1.Items.Add(DateTime.Now + "三号位老婆大破");
+					listBox1.Items.Add(DateTime.Now + "维修 - 三号位老婆大破");
 					Wife_Core.CreateImage(2); //截图
 					await Task.Run(() => { Thread.Sleep(3000); });
 					Wife_Core.Clicks(MainGameProgression, User_Point(63));
@@ -889,7 +916,7 @@ namespace Wife_Main
 				//四号位
 				if (Wife_Core.Home(Wife_Life4) == true)
 				{
-					listBox1.Items.Add(DateTime.Now + "四号位老婆大破");
+					listBox1.Items.Add(DateTime.Now + "维修 - 四号位老婆大破");
 					Wife_Core.CreateImage(2); //截图
 					await Task.Run(() => { Thread.Sleep(3000); });
 					Wife_Core.Clicks(MainGameProgression, User_Point(64));
@@ -899,7 +926,7 @@ namespace Wife_Main
 				//五号位
 				if (Wife_Core.Home(Wife_Life5) == true)
 				{
-					listBox1.Items.Add(DateTime.Now + "五号位老婆大破");
+					listBox1.Items.Add(DateTime.Now + "维修 - 五号位老婆大破");
 					Wife_Core.CreateImage(2); //截图
 					await Task.Run(() => { Thread.Sleep(3000); });
 					Wife_Core.Clicks(MainGameProgression, User_Point(65));
@@ -909,7 +936,7 @@ namespace Wife_Main
 				//六号位
 				if (Wife_Core.Home(Wife_Life6) == true)
 				{
-					listBox1.Items.Add(DateTime.Now + "六号位老婆大破");
+					listBox1.Items.Add(DateTime.Now + "维修 - 六号位老婆大破");
 					Wife_Core.CreateImage(2); //截图
 					await Task.Run(() => { Thread.Sleep(3000); });
 					Wife_Core.Clicks(MainGameProgression, User_Point(66));
@@ -924,7 +951,7 @@ namespace Wife_Main
 					(Wife_Core.Home(Wife_Life6) == false))
 				{
 					//全部老婆不是红血
-					listBox1.Items.Add(DateTime.Now + "全舰队无大破");
+					listBox1.Items.Add(DateTime.Now + "维修 - 全舰队无大破");
 					WifeExamine = false; //退出检查函数
 					WifeHealthStatus = true; //确认船只完好
 					break;
@@ -935,6 +962,11 @@ namespace Wife_Main
 		}
 
 		#endregion
+
+
+
+
+
 
 
 

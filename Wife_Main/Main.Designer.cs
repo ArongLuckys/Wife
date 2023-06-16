@@ -103,8 +103,8 @@
 			this.button9 = new System.Windows.Forms.Button();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
-			this.timer2 = new System.Windows.Forms.Timer(this.components);
 			this.checkBox11 = new System.Windows.Forms.CheckBox();
+			this.timer2 = new System.Windows.Forms.Timer(this.components);
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox6.SuspendLayout();
@@ -158,22 +158,26 @@
 			// 
 			// button11
 			// 
+			this.button11.BackColor = System.Drawing.Color.IndianRed;
+			this.button11.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.button11.Location = new System.Drawing.Point(598, 12);
 			this.button11.Name = "button11";
 			this.button11.Size = new System.Drawing.Size(168, 45);
 			this.button11.TabIndex = 13;
 			this.button11.Text = "护肝结束";
-			this.button11.UseVisualStyleBackColor = true;
+			this.button11.UseVisualStyleBackColor = false;
 			this.button11.Click += new System.EventHandler(this.button11_Click);
 			// 
 			// button6
 			// 
+			this.button6.BackColor = System.Drawing.Color.ForestGreen;
+			this.button6.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
 			this.button6.Location = new System.Drawing.Point(424, 12);
 			this.button6.Name = "button6";
 			this.button6.Size = new System.Drawing.Size(168, 45);
 			this.button6.TabIndex = 0;
-			this.button6.Text = "护肝开始(将会最小化软件)";
-			this.button6.UseVisualStyleBackColor = true;
+			this.button6.Text = "护肝开始";
+			this.button6.UseVisualStyleBackColor = false;
 			this.button6.Click += new System.EventHandler(this.button6_Click);
 			// 
 			// groupBox6
@@ -991,11 +995,6 @@
 			this.timer1.Interval = 1000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
-			// timer2
-			// 
-			this.timer2.Interval = 3000;
-			this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-			// 
 			// checkBox11
 			// 
 			this.checkBox11.AutoSize = true;
@@ -1008,6 +1007,12 @@
 			this.checkBox11.Text = "夜战";
 			this.checkBox11.UseVisualStyleBackColor = true;
 			this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
+			// 
+			// timer2
+			// 
+			this.timer2.Enabled = true;
+			this.timer2.Interval = 1;
+			this.timer2.Tick += new System.EventHandler(this.timer2_Tick_1);
 			// 
 			// Main
 			// 
@@ -1023,6 +1028,7 @@
 			this.Name = "Main";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Wife";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.tabControl1.ResumeLayout(false);
 			this.tabPage1.ResumeLayout(false);
@@ -1132,9 +1138,9 @@
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.ComboBox comboBox11;
 		private System.Windows.Forms.Label label11;
-		private System.Windows.Forms.Timer timer2;
 		private System.Windows.Forms.Button button11;
 		private System.Windows.Forms.CheckBox checkBox11;
+		private System.Windows.Forms.Timer timer2;
 	}
 }
 

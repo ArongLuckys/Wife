@@ -36,9 +36,23 @@ namespace Wife_Main
 			public int BattleMapCount; //出征次数
 			public int ExpeditionTime; //远征时间
 
-			public bool ExpeditionSwitch; //远征任务情况
+
 
 		}
+
+		public bool ComBatSwitch; //出征任务情况
+		public bool ExpeditionSwitch; //远征任务情况
+		public bool WifeExamine; //船只出征检查状态
+		public bool WifeHealthStatus; //船只完好确认 过了出征检查后会赋值为true，每次战斗后必须赋值为false
+		public int Fully_Invested = 0; //这个属性用于检测满仓，1为满 0为不满
+		public bool Combat_Condition; //这个属性进入战斗后为true，结束为false 用于战斗中夜战判断
+		public int Number_of_Battles; //单次战斗的次数
+		public int Number_of_Battles_Sum; //总的战斗次数
+
+
+
+
+
 		BattleMap battleMap = new BattleMap();
 
 		//出征数组定义
@@ -59,39 +73,43 @@ namespace Wife_Main
 		public int times;//鼠标点击间隔
 		public int mouse_er; //鼠标误差
 		public static int execute_sum; //执行次数
-		public static string Dg = Directory.GetCurrentDirectory() + "\\Data"; //配置文件路径
-		public Point pt; //全局唯一坐标点
+		public static string Dg = Directory.GetCurrentDirectory() + "\\Data\\"; //配置文件路径
 		public static string Mian_info; //全局信息输出，由计时器输出
 		public DateTime de = DateTime.Now; //当前时间
 		public static string Log = Directory.GetCurrentDirectory() + "\\Wife_Log.txt"; //日志文件路径
 
-		public static int Fully_Invested = 0; //这个属性用于检测满仓，1为满 0为不满
-		public static int Combat_Condition = 0; //这个属性进入战斗后为1，结束为0 用于战斗中夜战判断
+
 
 		public static DateTime ks, js, hctime, temptimes, starttime;
 		public static TimeSpan Run_time; //单次出征时间
 		public static double Run_times; //总出征时间
 		public static int NumberOfRepairs; //维修次数统计
 
-		public int Number_of_battles; //单次战斗的次数
+		
 		public int Number_of_battles_Re = 1; //单次战斗的次数 计时器使用参数
 
 		//每个界面信息定义
-		public string HomePath = Dg + "\\Home.wife"; //主页
-		public string Go_On_An_Expedition = Dg + "\\Go_On_An_Expedition.wife"; //主页到出征界面 
-		public string Expedition = Dg + "\\Expedition.wife"; //主页到远征界面
+		public string HomePath = Dg + "Home.wife"; //主页
+		public string Go_On_An_Expedition = Dg + "Go_On_An_Expedition.wife"; //主页到出征界面 
+		public string Expedition = Dg + "Expedition.wife"; //主页到远征界面
+		public string Formation = Dg + "Formation.wife"; //编队界面
+		public string Battle_Array = Dg + "Battle_Array.wife"; //索敌完成界面，准备打或者撤退
+		public string Our_Formation = Dg + "Our_Formation.wife"; //我方阵型选择界面
+		public string Result = Dg + "Result.wife"; //战斗结果界面
+		public string Shipping = Dg + "Shipping.wife"; //船只界面，出货界面
+		public string Forward_And_Backward = Dg + "Forward_And_Backward.wife"; //战斗结束后 无大破的前进与后退
+		public string Post_War_Disadvantage = Dg + "Post_War_Disadvantage.wife"; //战斗结束后 有大破的前进与后退
 
 
 
-		public string Formation = Dg + "\\Formation\\"; //编队界面 1002
 
-		public string Battle_Array = Dg + "\\Battle_Array\\"; //索敌完成界面，准备打或者撤退 1004
+
+
 		public string Night_Fighting_Or_Battle = Dg + "\\Night_Fighting_Or_Battle\\"; //是否要夜战 界面 1005
-		public string Result = Dg + "\\Result\\"; //战斗结果界面 1006
 		public string Our_Team = Dg + "\\Our_Team\\"; //我方阵容选择界面 1007
-		public string Shipping = Dg + "\\Shipping\\"; //船只界面，出货界面 1008
+
 		public string Full_Position = Dg + "\\Full_Position\\"; //出征界面 船只满位 1009
-		public string Post_War_Disadvantage = Dg + "\\Post_War_Disadvantage\\"; //战后有大破船 1010
+		
 		public string Flagship_Damage = Dg + "\\Flagship_Damage\\"; //旗舰大破 1011
 		public string Disassemble_Wife = Dg + "\\Disassemble_Wife\\Disassemble_Wife\\"; //拆解船只界面 1012
 		public string Disassemble_Wife_Add = Dg + "\\Disassemble_Wife\\Disassemble_Wife_Add\\"; //拆解船只界面添加船只 1013
@@ -108,7 +126,13 @@ namespace Wife_Main
 		public string Expedition_Resource_UI = Dg + "\\Expedition_Resource_UI.wife"; //远征成功界面
 		public string Expedition_Resource_END = Dg + "\\Expedition_Resource_END.wife"; //远征完成弹窗
 
-
+		//老婆耐久识别 色卡文件为红血大破
+		public string Wife_Life1 = Dg + "Wife_Life1.wife";
+		public string Wife_Life2 = Dg + "Wife_Life2.wife";
+		public string Wife_Life3 = Dg + "Wife_Life3.wife";
+		public string Wife_Life4 = Dg + "Wife_Life4.wife";
+		public string Wife_Life5 = Dg + "Wife_Life5.wife";
+		public string Wife_Life6 = Dg + "Wife_Life6.wife";
 
 
 
@@ -139,6 +163,12 @@ namespace Wife_Main
 				case 1: { user.X = 1200; user.Y = 660; }; break;//主页中出征
 				case 2: { user.X = 230; user.Y = 30; }; break;//出征页面中的出征
 				case 3: { user.X = 560; user.Y = 30; }; break;//出征页面中的远征
+				case 4: { user.X = 800; user.Y = 400; }; break;//出征页面中的大地图
+				case 5: { user.X = 1100; user.Y = 670; }; break;//出征页面中的 开始出征
+				case 6: { user.X = 1150; user.Y = 660; }; break;//索敌完成中的 开始战斗
+				case 7: { user.X = 940; user.Y = 660; }; break;//索敌完成中的 撤退
+				case 8: { user.X = 440; user.Y = 460; }; break;//大地图中 无大破的前进与后退界面中的前进
+				case 9: { user.X = 840; user.Y = 460; }; break;//大地图中 无大破的前进与后退界面中的回港
 
 				case 99: { user.X = 40; user.Y = 40; }; break;//左上角返回键
 
@@ -147,6 +177,20 @@ namespace Wife_Main
 				case 33: { user.X = 1150; user.Y = 480; }; break;//出征页面中的远征资源3
 				case 34: { user.X = 1150; user.Y = 620; }; break;//出征页面中的远征资源4
 				case 35: { user.X = 480; user.Y = 450; }; break;//出征页面中的远征资源 的 再次出征
+
+				case 60: { user.X = 550; user.Y = 560; }; break;//编队点击维修
+				case 61: { user.X = 130; user.Y = 300; }; break;//编队维修老婆1
+				case 62: { user.X = 280; user.Y = 300; }; break;//编队维修老婆2
+				case 63: { user.X = 420; user.Y = 300; }; break;//编队维修老婆3
+				case 64: { user.X = 580; user.Y = 300; }; break;//编队维修老婆4
+				case 65: { user.X = 720; user.Y = 300; }; break;//编队维修老婆5
+				case 66: { user.X = 870; user.Y = 300; }; break;//编队维修老婆6
+
+				case 71: { user.X = 870; user.Y = 300; }; break;//单纵
+				case 72: { user.X = 870; user.Y = 300; }; break;//复纵
+				case 73: { user.X = 870; user.Y = 300; }; break;//轮形
+				case 74: { user.X = 870; user.Y = 300; }; break;//梯形
+				case 75: { user.X = 870; user.Y = 300; }; break;//单横
 			}
 
 			return user;
@@ -178,8 +222,9 @@ namespace Wife_Main
 			comboBox8.SelectedIndex = Properties.Settings.Default.comboBox8;
 			comboBox11.SelectedIndex = Properties.Settings.Default.comboBox11;
 
-			//远征
-			textBox2.Text = Properties.Settings.Default.textBox2time.ToString();
+			
+			textBox2.Text = Properties.Settings.Default.textBox2time.ToString();//远征时间
+			checkBox11.Checked = Properties.Settings.Default.checkBox11; //是否夜战
 		}
 
 		/// <summary>
@@ -297,6 +342,7 @@ namespace Wife_Main
 			battleMap.BattleMapComboBox3 = comboBox3.SelectedIndex;
 			battleMap.BattleMapComboBox4 = comboBox4.SelectedIndex;
 			battleMap.BattleMapCount = int.Parse(textBox1.Text);
+			ComBatSwitch = true;
 			listBox3.Items.Add("【出征】" + comboBox1.Text + "\\" + comboBox2.Text + "\\" + comboBox3.Text + "\\" + comboBox4.Text + "\\次数" + textBox1.Text);
 			listBox1.Items.Add("添加出征任务成功");
 		}
@@ -378,7 +424,7 @@ namespace Wife_Main
 		private void button2_Click(object sender, EventArgs e)
 		{
 			battleMap.ExpeditionTime = int.Parse(textBox2.Text) * 60000;//将分钟换算为毫秒
-			battleMap.ExpeditionSwitch = true; //开始远征
+			ExpeditionSwitch = true; //开始远征
 			listBox3.Items.Add("【远征】" + "每隔" + textBox2.Text + "分钟将检查远征情况");
 			listBox1.Items.Add("添加远征任务成功");
 		}
@@ -427,10 +473,7 @@ namespace Wife_Main
 		/// <param name="e"></param>
 		private void timer2_Tick(object sender, EventArgs e)
 		{
-			if (battleMap.ExpeditionSwitch == true)
-			{
-				ExpeditionMain();
-			}
+
 		}
 
 		/// <summary>
@@ -463,9 +506,8 @@ namespace Wife_Main
 		/// <param name="e"></param>
 		private void button11_Click(object sender, EventArgs e)
 		{
-			//timer2.Stop();
-			//listBox1.Items.Add("计时器二关闭");
-			ExpeditionMain();
+			ExpeditionSwitch = false;
+			ComBatSwitch = false;
 		}
 
 		/// <summary>
@@ -476,8 +518,15 @@ namespace Wife_Main
 		private void button6_Click(object sender, EventArgs e)
 		{
 			//任务列表开始
-			timer2.Start();
-			listBox1.Items.Add("计时器二启动");
+			if (ExpeditionSwitch == true)
+			{
+				ExpeditionMain();
+			}
+
+			if (ComBatSwitch == true)
+			{
+				ComBatMain();
+			}
 		}
 
 		/// <summary>
@@ -487,16 +536,22 @@ namespace Wife_Main
 		/// <param name="e"></param>
 		private void button9_Click(object sender, EventArgs e)
 		{
-			//Wife_Core.Clicks(MainGameProgression, User_Point(1));
+			if (Wife_Core.Home(Post_War_Disadvantage) == true)
+			{
+				MessageBox.Show("111");
+			}
 
-			ExpeditionMain();
+		}
 
-			//if (Wife_Core.Home(Expedition_Resource_03) == true)
-			//{
-			//	MessageBox.Show("111");
-			//	//Wife_Core.Clicks(MainGameProgression, User_Point(1));
-			//}
-
+		/// <summary>
+		/// 是否夜战
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void checkBox11_CheckedChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.checkBox11 = checkBox11.Checked;
+			Properties.Settings.Default.Save();
 		}
 
 		/// <summary>
@@ -516,105 +571,370 @@ namespace Wife_Main
 		/// </summary>
 		private async void ExpeditionMain()
 		{
-			//判断当前是否在主页
-			if (Wife_Core.Home(HomePath) == true)
+			while (ExpeditionSwitch == true)
 			{
-				listBox1.Items.Add(DateTime.Now + "远征 - 当前位于主页" );
-				//点击出征
-				Wife_Core.Clicks(MainGameProgression, User_Point(1));
-				await Task.Run(() => { Thread.Sleep(1000); });
-			}
+				await Task.Run(() => { Thread.Sleep(3000); });
 
-			//判断当前是否在出征页面
-			if (Wife_Core.Home(Go_On_An_Expedition) == true)
-			{
-				listBox1.Items.Add(DateTime.Now + "远征 - 当前位于出征，暂停计时器并返回");
-				//这里进来不是远征的化，默认回到主页去去算了
-				Wife_Core.Clicks(MainGameProgression, User_Point(99));
-				//等待一段时间后再点开出征
-				await Task.Run(() => { Thread.Sleep(battleMap.ExpeditionTime); });
-				listBox1.Items.Add(DateTime.Now + "暂停结束，计时器启动");
-			}
-
-			//判断当前是否在远征界面
-			if (Wife_Core.Home(Expedition) == true)
-			{
-				listBox1.Items.Add(DateTime.Now + "远征 - 当前位于远征");
-				//判断当前是否有资源可以收集
-				if (Wife_Core.Home(Expedition_Resource_info) == true)
+				//判断当前是否在主页
+				if (Wife_Core.Home(HomePath) == true)
 				{
-					//判断第一行
-					if (Wife_Core.Home(Expedition_Resource_01) == true)
-					{
-						Wife_Core.Clicks(MainGameProgression, User_Point(31));
-						listBox2.Items.Add(DateTime.Now + "收集了第一行的资源");
-						await Task.Run(() => { Thread.Sleep(1000); });
-					}
-
-					//判断第二行
-					if (Wife_Core.Home(Expedition_Resource_02) == true)
-					{
-						Wife_Core.Clicks(MainGameProgression, User_Point(32));
-						listBox2.Items.Add(DateTime.Now + "收集了第二行的资源");
-						await Task.Run(() => { Thread.Sleep(1000); });
-					}
-
-					//判断第三行
-					if (Wife_Core.Home(Expedition_Resource_03) == true)
-					{
-						Wife_Core.Clicks(MainGameProgression, User_Point(33));
-						listBox2.Items.Add(DateTime.Now + "收集了第三行的资源");
-						await Task.Run(() => { Thread.Sleep(1000); });
-					}
-
-					//判断第四行
-					if (Wife_Core.Home(Expedition_Resource_04) == true)
-					{
-						Wife_Core.Clicks(MainGameProgression, User_Point(34));
-						listBox2.Items.Add(DateTime.Now + "收集了第四行的资源");
-						await Task.Run(() => { Thread.Sleep(1000); });
-					}
+					listBox1.Items.Add(DateTime.Now + "远征 - 当前位于主页");
+					//点击出征
+					Wife_Core.Clicks(MainGameProgression, User_Point(1));
+					await Task.Run(() => { Thread.Sleep(3000); });
 				}
-				else
+
+				//判断当前是否在出征页面
+				if (Wife_Core.Home(Go_On_An_Expedition) == true)
 				{
-					listBox1.Items.Add(DateTime.Now + "返回主页");
-					//左上角返回主页
+					listBox1.Items.Add(DateTime.Now + "远征 - 当前位于出征");
+					//这里进来不是远征的话，默认回到主页去去算了
 					Wife_Core.Clicks(MainGameProgression, User_Point(99));
-					await Task.Run(() => { Thread.Sleep(1000); });
+					//等待一段时间后再点开出征
+					Console.WriteLine(battleMap.ExpeditionTime);
+					await Task.Run(() => { Thread.Sleep(battleMap.ExpeditionTime); });
 				}
-			}
 
-			//判断当前界面是否是远征完成界面
-			if (Wife_Core.Home(Expedition_Resource_UI) == true)
-			{
-				listBox1.Items.Add(DateTime.Now + "远征 - 当前位于远征成功界面");
-				Wife_Core.CreateImage(3);
-				await Task.Run(() => { Thread.Sleep(1000); });
-				//点击下一步
-				Wife_Core.Clicks(MainGameProgression, User_Point(0));
-				await Task.Run(() => { Thread.Sleep(1000); });
-			}
+				//判断当前是否在远征界面
+				if (Wife_Core.Home(Expedition) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "远征 - 当前位于远征");
+					//判断当前是否有资源可以收集
+					if (Wife_Core.Home(Expedition_Resource_info) == true)
+					{
+						//判断第一行
+						if (Wife_Core.Home(Expedition_Resource_01) == true)
+						{
+							Wife_Core.Clicks(MainGameProgression, User_Point(31));
+							listBox2.Items.Add(DateTime.Now + "收集了第一行的资源");
+							await Task.Run(() => { Thread.Sleep(3000); });
+						}
 
-			//判断当前界面是否是远征完成界面 后 的弹窗
-			if (Wife_Core.Home(Expedition_Resource_END) == true)
-			{
-				listBox1.Items.Add(DateTime.Now + "远征 - 当前位于远征成功界面");
-				//点击再次出征
-				Wife_Core.Clicks(MainGameProgression, User_Point(35));
-				await Task.Run(() => { Thread.Sleep(1000); });
+						//判断第二行
+						if (Wife_Core.Home(Expedition_Resource_02) == true)
+						{
+							Wife_Core.Clicks(MainGameProgression, User_Point(32));
+							listBox2.Items.Add(DateTime.Now + "收集了第二行的资源");
+							await Task.Run(() => { Thread.Sleep(3000); });
+						}
+
+						//判断第三行
+						if (Wife_Core.Home(Expedition_Resource_03) == true)
+						{
+							Wife_Core.Clicks(MainGameProgression, User_Point(33));
+							listBox2.Items.Add(DateTime.Now + "收集了第三行的资源");
+							await Task.Run(() => { Thread.Sleep(3000); });
+						}
+
+						//判断第四行
+						if (Wife_Core.Home(Expedition_Resource_04) == true)
+						{
+							Wife_Core.Clicks(MainGameProgression, User_Point(34));
+							listBox2.Items.Add(DateTime.Now + "收集了第四行的资源");
+							await Task.Run(() => { Thread.Sleep(3000); });
+						}
+					}
+					else
+					{
+						listBox1.Items.Add(DateTime.Now + "返回主页");
+						//左上角返回主页
+						Wife_Core.Clicks(MainGameProgression, User_Point(99));
+						await Task.Run(() => { Thread.Sleep(3000); });
+					}
+				}
+
+				//判断当前界面是否是远征完成界面
+				if (Wife_Core.Home(Expedition_Resource_UI) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "远征 - 当前位于远征成功界面");
+					Wife_Core.CreateImage(3);
+					await Task.Run(() => { Thread.Sleep(3000); });
+					//点击下一步
+					Wife_Core.Clicks(MainGameProgression, User_Point(0));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//判断当前界面是否是远征完成界面 后 的弹窗
+				if (Wife_Core.Home(Expedition_Resource_END) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "远征 - 当前位于远征成功界面");
+					//点击再次出征
+					Wife_Core.Clicks(MainGameProgression, User_Point(35));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//while函数最后加一个暂停，不然一直高频
+				await Task.Run(() => { Thread.Sleep(3000); });
 			}
 		}
 
 		#endregion
 
+		#region 出征函数的相关逻辑
+
+		/// <summary>
+		/// 出征主函数
+		/// </summary>
+		private async void ComBatMain()
+		{
+			while (ComBatSwitch == true)
+			{
+				await Task.Run(() => { Thread.Sleep(3000); });
+
+				//判断当前是否在主页
+				if (Wife_Core.Home(HomePath) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "出征 - 当前位于主页");
+					//点击出征
+					Wife_Core.Clicks(MainGameProgression, User_Point(1));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//判断当前是否在出征页面
+				if (Wife_Core.Home(Go_On_An_Expedition) == true)
+				{
+					//退出出征函数 如果计数满了的话
+					if (Number_of_Battles_Sum == int.Parse(textBox1.Text))
+					{
+						listBox1.Items.Add(DateTime.Now + "出征 - 任务完成");
+						break;
+					}
+
+					listBox1.Items.Add(DateTime.Now + "出征 - 当前位于出征");
+					//点击大地图
+					Wife_Core.Clicks(MainGameProgression, User_Point(4));
+					await Task.Run(() => { Thread.Sleep(3000); });
+
+				}
+
+				//判断当前是否在远征界面
+				if (Wife_Core.Home(Expedition) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "出征 - 当前位于远征");
+					//点击出征
+					Wife_Core.Clicks(MainGameProgression, User_Point(2));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//判断当前是否在编队
+				if (Wife_Core.Home(Formation) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "出征 - 当前位于编队");
+
+					if (WifeExamine == false)
+					{
+						Maintenance(); //过一遍船只检查
+					}
+
+					//点击 开始出征
+					if (WifeHealthStatus == true)
+					{
+						//点击 开始出征
+						listBox1.Items.Add(DateTime.Now + "出征 - 开始出征");
+						Wife_Core.Clicks(MainGameProgression, User_Point(5));
+						await Task.Run(() => { Thread.Sleep(3000); });
+					}
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//判断当前是否是索敌完成
+				if (Wife_Core.Home(Battle_Array) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "出征 - 索敌完成");
+					Wife_Core.Clicks(MainGameProgression, User_Point(6));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//判断当前是否我方选择 阵型
+				if (Wife_Core.Home(Our_Formation) == true)
+				{
+					switch (comboBox4.SelectedIndex)
+					{
+						case 0: { Wife_Core.Clicks(MainGameProgression, User_Point(71)); listBox1.Items.Add(DateTime.Now + "出征 - 单纵"); }; break;//单纵
+						case 1: { Wife_Core.Clicks(MainGameProgression, User_Point(72)); listBox1.Items.Add(DateTime.Now + "出征 - 复纵"); }; break;//复纵
+						case 2: { Wife_Core.Clicks(MainGameProgression, User_Point(73)); listBox1.Items.Add(DateTime.Now + "出征 - 轮形"); }; break;//轮形
+						case 3: { Wife_Core.Clicks(MainGameProgression, User_Point(74)); listBox1.Items.Add(DateTime.Now + "出征 - 梯形"); }; break;//梯形
+						case 4: { Wife_Core.Clicks(MainGameProgression, User_Point(75)); listBox1.Items.Add(DateTime.Now + "出征 - 单横"); }; break;//单横
+					}
+					Combat_Condition = true; //进入战斗
+					Number_of_Battles_Sum++; //总的战斗次数
+					Number_of_Battles++; //单次战斗次数
+					listBox1.Items.Add(DateTime.Now + "出征 - 当前进行第" + Number_of_Battles_Sum + "次战斗");
+					listBox1.Items.Add(DateTime.Now + "出征 - 还剩" + (int.Parse(textBox1.Text) - Number_of_Battles_Sum) + "次战斗");
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//判断当前是否战斗结束
+				if (Wife_Core.Home(Result) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "出征 - 战斗结束");
+
+					WifeHealthStatus = false; //船只检查状态未知
+					Combat_Condition = false; //非战斗状态
+
+					Wife_Core.Clicks(MainGameProgression, User_Point(0));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//判断当前是否 掉落船只
+				if (Wife_Core.Home(Shipping) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "出征 - 打捞到船只了");
+					Wife_Core.CreateImage(1); //截图
+					await Task.Run(() => { Thread.Sleep(3000); });
+					Wife_Core.Clicks(MainGameProgression, User_Point(0));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//判断当前是否是 无大破的前进与后退 需要满足不在战斗状态且非大破
+				if ((Wife_Core.Home(Forward_And_Backward) == true) && (Combat_Condition == false))
+				{
+					listBox1.Items.Add(DateTime.Now + "出征 - 判断前进与后退");
+
+					if (Number_of_Battles < int.Parse(comboBox10.Text))
+					{
+						listBox1.Items.Add(DateTime.Now + "出征 - 前进");
+						Wife_Core.Clicks(MainGameProgression, User_Point(8));
+					}
+					else
+					{
+						listBox1.Items.Add(DateTime.Now + "出征 - 回港");
+						Wife_Core.Clicks(MainGameProgression, User_Point(9));
+					}
+
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//判断当前是否是 夜战中追击与放弃 需要满足在战斗状态
+				if ((Wife_Core.Home(Forward_And_Backward) == true) && (Combat_Condition == true))
+				{
+					listBox1.Items.Add(DateTime.Now + "出征 - 判断是否夜战");
+
+					if (checkBox11.Checked == true)
+					{
+						listBox1.Items.Add(DateTime.Now + "出征 - 夜战进击");
+						Wife_Core.Clicks(MainGameProgression, User_Point(8));
+					}
+					else
+					{
+						listBox1.Items.Add(DateTime.Now + "出征 - 夜战撤退");
+						Wife_Core.Clicks(MainGameProgression, User_Point(9));
+					}
+
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
 
 
 
 
+				//判断结束后是否是 有大破船只 这种情况一定回
+				if (Wife_Core.Home(Post_War_Disadvantage) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "出征 - 战后队伍内有大破 回港");
+					Wife_Core.Clicks(MainGameProgression, User_Point(9));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
 
+				await Task.Run(() => { Thread.Sleep(3000); });
+			}
+		}
 
+		#endregion
 
+		#region 维修检查的相关函数
 
+		/// <summary>
+		/// 维修检测
+		/// </summary>
+		private async void Maintenance()
+		{
+			WifeExamine = true;
+
+			while (true)
+			{
+				//点击维修
+				Wife_Core.Clicks(MainGameProgression, User_Point(60));
+				await Task.Run(() => { Thread.Sleep(3000); });
+
+				//一号位
+				if (Wife_Core.Home(Wife_Life1) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "一号位老婆大破");
+					Wife_Core.CreateImage(2); //截图
+					await Task.Run(() => { Thread.Sleep(3000); });
+					Wife_Core.Clicks(MainGameProgression, User_Point(61));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//二号位
+				if (Wife_Core.Home(Wife_Life2) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "二号位老婆大破");
+					Wife_Core.CreateImage(2); //截图
+					await Task.Run(() => { Thread.Sleep(3000); });
+					Wife_Core.Clicks(MainGameProgression, User_Point(62));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//三号位
+				if (Wife_Core.Home(Wife_Life3) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "三号位老婆大破");
+					Wife_Core.CreateImage(2); //截图
+					await Task.Run(() => { Thread.Sleep(3000); });
+					Wife_Core.Clicks(MainGameProgression, User_Point(63));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//四号位
+				if (Wife_Core.Home(Wife_Life4) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "四号位老婆大破");
+					Wife_Core.CreateImage(2); //截图
+					await Task.Run(() => { Thread.Sleep(3000); });
+					Wife_Core.Clicks(MainGameProgression, User_Point(64));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//五号位
+				if (Wife_Core.Home(Wife_Life5) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "五号位老婆大破");
+					Wife_Core.CreateImage(2); //截图
+					await Task.Run(() => { Thread.Sleep(3000); });
+					Wife_Core.Clicks(MainGameProgression, User_Point(65));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				//六号位
+				if (Wife_Core.Home(Wife_Life6) == true)
+				{
+					listBox1.Items.Add(DateTime.Now + "六号位老婆大破");
+					Wife_Core.CreateImage(2); //截图
+					await Task.Run(() => { Thread.Sleep(3000); });
+					Wife_Core.Clicks(MainGameProgression, User_Point(66));
+					await Task.Run(() => { Thread.Sleep(3000); });
+				}
+
+				if ((Wife_Core.Home(Wife_Life1) == false) &&
+					(Wife_Core.Home(Wife_Life2) == false) &&
+					(Wife_Core.Home(Wife_Life3) == false) &&
+					(Wife_Core.Home(Wife_Life4) == false) &&
+					(Wife_Core.Home(Wife_Life5) == false) &&
+					(Wife_Core.Home(Wife_Life6) == false))
+				{
+					//全部老婆不是红血
+					listBox1.Items.Add(DateTime.Now + "全舰队无大破");
+					WifeExamine = false; //退出检查函数
+					WifeHealthStatus = true; //确认船只完好
+					break;
+				}
+
+				await Task.Run(() => { Thread.Sleep(3000); });
+			}
+		}
+
+		#endregion
 
 
 

@@ -32,6 +32,7 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.button11 = new System.Windows.Forms.Button();
 			this.button6 = new System.Windows.Forms.Button();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
 			this.button5 = new System.Windows.Forms.Button();
@@ -103,7 +104,7 @@
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.timer2 = new System.Windows.Forms.Timer(this.components);
-			this.button11 = new System.Windows.Forms.Button();
+			this.checkBox11 = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.groupBox6.SuspendLayout();
@@ -154,6 +155,16 @@
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "开始";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// button11
+			// 
+			this.button11.Location = new System.Drawing.Point(598, 12);
+			this.button11.Name = "button11";
+			this.button11.Size = new System.Drawing.Size(168, 45);
+			this.button11.TabIndex = 13;
+			this.button11.Text = "护肝结束";
+			this.button11.UseVisualStyleBackColor = true;
+			this.button11.Click += new System.EventHandler(this.button11_Click);
 			// 
 			// button6
 			// 
@@ -340,6 +351,7 @@
 			// 
 			// groupBox3
 			// 
+			this.groupBox3.Controls.Add(this.checkBox11);
 			this.groupBox3.Controls.Add(this.checkBox8);
 			this.groupBox3.Controls.Add(this.checkBox5);
 			this.groupBox3.Controls.Add(this.checkBox4);
@@ -426,9 +438,9 @@
 			this.comboBox4.Items.AddRange(new object[] {
             "单纵",
             "复纵",
+            "轮形",
             "梯形",
-            "单横",
-            "轮形"});
+            "单横"});
 			this.comboBox4.Location = new System.Drawing.Point(192, 38);
 			this.comboBox4.Name = "comboBox4";
 			this.comboBox4.Size = new System.Drawing.Size(121, 20);
@@ -976,7 +988,7 @@
 			// timer1
 			// 
 			this.timer1.Enabled = true;
-			this.timer1.Interval = 3000;
+			this.timer1.Interval = 1000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
 			// 
 			// timer2
@@ -984,15 +996,18 @@
 			this.timer2.Interval = 3000;
 			this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
 			// 
-			// button11
+			// checkBox11
 			// 
-			this.button11.Location = new System.Drawing.Point(598, 12);
-			this.button11.Name = "button11";
-			this.button11.Size = new System.Drawing.Size(168, 45);
-			this.button11.TabIndex = 13;
-			this.button11.Text = "护肝结束";
-			this.button11.UseVisualStyleBackColor = true;
-			this.button11.Click += new System.EventHandler(this.button11_Click);
+			this.checkBox11.AutoSize = true;
+			this.checkBox11.Checked = true;
+			this.checkBox11.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkBox11.Location = new System.Drawing.Point(13, 64);
+			this.checkBox11.Name = "checkBox11";
+			this.checkBox11.Size = new System.Drawing.Size(48, 16);
+			this.checkBox11.TabIndex = 6;
+			this.checkBox11.Text = "夜战";
+			this.checkBox11.UseVisualStyleBackColor = true;
+			this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
 			// 
 			// Main
 			// 
@@ -1119,6 +1134,7 @@
 		private System.Windows.Forms.Label label11;
 		private System.Windows.Forms.Timer timer2;
 		private System.Windows.Forms.Button button11;
+		private System.Windows.Forms.CheckBox checkBox11;
 	}
 }
 
